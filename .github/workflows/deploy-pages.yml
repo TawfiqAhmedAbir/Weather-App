@@ -43,6 +43,27 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const source = { branch: 'gh-pages', path: '/' };
+            const manualSetupMessage =
+              'Published to gh-pages, but this token cannot configure repository Pages settings. ' +
+              'If the site is still 404, enable Pages once in Settings > Pages with source gh-pages / (root).';
+
+            async function configurePages(method) {
+              try {
+                await github.request(`${method} /repos/{owner}/{repo}/pages`, {
+                  owner,
+                  repo,
+                  source,
+                });
+                core.info(`${method === 'POST' ? 'Created' : 'Updated'} GitHub Pages site from gh-pages /.`);
+              } catch (error) {
+                if (error.status === 403) {
+                  core.warning(manualSetupMessage);
+                  return;
+                }
+
+                throw error;
+              }
+            }
 
             try {
               const { data: pages } = await github.request('GET /repos/{owner}/{repo}/pages', {
@@ -55,21 +76,11 @@ jobs:
                 return;
               }
 
-              await github.request('PUT /repos/{owner}/{repo}/pages', {
-                owner,
-                repo,
-                source,
-              });
-              core.info('Updated GitHub Pages source to gh-pages /.');
+              await configurePages('PUT');
             } catch (error) {
               if (error.status !== 404) {
                 throw error;
               }
 
-              await github.request('POST /repos/{owner}/{repo}/pages', {
-                owner,
-                repo,
-                source,
-              });
-              core.info('Created GitHub Pages site from gh-pages /.');
+              await configurePages('POST');
             }

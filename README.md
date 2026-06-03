@@ -39,7 +39,7 @@ Open [http://localhost:5173](http://localhost:5173).
 
 **https://tawfiqahmedabir.github.io/Weather-App/**
 
-Pushes to `main` rebuild and publish the `client/` app to the `gh-pages` branch via [Deploy MyUni to GitHub Pages](.github/workflows/deploy-pages.yml). The workflow also configures GitHub Pages to serve from `gh-pages` `/`, matching the legacy Pages setup used by the flexaccount project.
+Pushes to `main` rebuild and publish the `client/` app to the `gh-pages` branch via [Deploy MyUni to GitHub Pages](.github/workflows/deploy-pages.yml). The workflow uses the same legacy Pages source as the flexaccount project: `gh-pages` /.
 
 If the site does not load on first deploy, enable Pages once: **Repository → Settings → Pages → Build and deployment → Deploy from branch → `gh-pages` / `/ (root)**.
 
