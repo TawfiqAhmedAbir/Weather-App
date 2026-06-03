@@ -35,6 +35,14 @@ cd client && npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
+### Live demo (GitHub Pages)
+
+After deployment, the app is available at:
+
+**https://tawfiqahmedabir.github.io/Weather-App/**
+
+(Pushed to `main` triggers the [Deploy MyUni to GitHub Pages](.github/workflows/deploy-pages.yml) workflow.)
+
 ### Build for production
 
 ```bash
