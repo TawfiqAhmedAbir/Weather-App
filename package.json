@@ -1,11 +1,12 @@
 {
-  "name": "weather-app",
+  "name": "myuni-app",
   "version": "1.0.0",
-  "description": "A full-stack weather application",
+  "description": "MyUni — mobile-first university companion app",
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev",
-    "dev:server": "cd server && npm run dev"
+    "dev:server": "cd server && npm run dev",
+    "build:client": "cd client && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

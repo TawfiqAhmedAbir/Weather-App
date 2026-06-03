@@ -1,72 +1,72 @@
-# Weather App
+# MyUni — University Companion App
 
-A clean full-stack weather application built with Vite (vanilla JS) + Tailwind CSS frontend and Node.js + Express backend.
+A mobile-first React single-page application modeled after the LSBU myLSBU campus companion. Built with Vite, React, Tailwind CSS, and Lucide icons.
 
 ## Features
 
-- Submit a city name to get current weather information
-- Displays city name, temperature (°C), weather description, and weather icon
-- Uses OpenWeatherMap API for weather data
+- **My Campus home feed** — hero carousel, quick actions, navigation cards, daily essentials, and more
+- **Bottom navigation** — five tabs with active states and alert badge
+- **Time-aware greeting** — Good Morning / Afternoon / Evening / Night
+- **Auto-rotating carousel** — 4-second interval with manual chevron controls
+- **390px mobile shell** — centered on desktop with grey outer background
 
-## Setup Instructions
+## Setup
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
-- OpenWeatherMap API key
+- Node.js v18+
+- npm or pnpm
 
 ### Installation
 
-1. Clone the repository and navigate to the project directory
-2. Install root dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+# Root (optional, for concurrent dev with server)
+npm install
 
-3. Install client dependencies:
-   ```bash
-   cd client && npm install
-   ```
+# Client
+cd client && npm install
+```
 
-4. Install server dependencies:
-   ```bash
-   cd ../server && npm install
-   ```
+### Run the client
 
-5. Set up environment variables:
-   ```bash
-   cp .env.example .env
-   ```
-   Edit `.env` and add your OpenWeatherMap API key:
-   ```
-   OPENWEATHER_API_KEY=your_api_key_here
-   ```
+```bash
+cd client && npm run dev
+```
 
-### Running the Application
+Open [http://localhost:5173](http://localhost:5173).
 
-#### Option 1: Run both client and server together
+### Build for production
+
+```bash
+cd client && npm run build
+```
+
+### Run client + legacy weather server
+
 ```bash
 npm run dev
 ```
 
-#### Option 2: Run separately
-```bash
-# Terminal 1 - Start the server
-cd server && npm run dev
+## Tech stack
 
-# Terminal 2 - Start the client
-cd client && npm run dev
+- **Frontend**: React 18, Vite 5, Tailwind CSS 3, lucide-react
+- **Typography**: Nunito (body), Playfair Display (logo)
+- **Colors**: Primary `#A0274F`, Secondary `#E07B2A`, Charcoal `#3A3A3A`
+
+## Project structure
+
 ```
-
-The client will be available at `http://localhost:5173` and the server at `http://localhost:3000`.
-
-## API Endpoints
-
-- `GET /api/weather?city={cityName}` - Get weather data for a specific city
-
-## Tech Stack
-
-- **Frontend**: Vite, Vanilla JavaScript, Tailwind CSS (CDN)
-- **Backend**: Node.js, Express
-- **API**: OpenWeatherMap API
+client/src/
+  components/
+    BottomNav.jsx
+    HeroCarousel.jsx
+    QuickGrid.jsx
+    DailyEssentials.jsx
+    FeatureCards.jsx
+    LibraryCard.jsx
+    FullWidthCards.jsx
+    ...
+  screens/
+    HomeScreen.jsx
+  App.jsx
+```
