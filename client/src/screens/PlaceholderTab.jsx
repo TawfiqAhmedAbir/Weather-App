@@ -1,9 +1,6 @@
-import { Bell, Calendar, Search, Settings } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 const TAB_META = {
-  settings: { title: 'Settings', icon: Settings },
-  calendar: { title: 'Calendar', icon: Calendar },
-  alerts: { title: 'Alerts', icon: Bell },
   search: { title: 'Search', icon: Search },
 };
 
@@ -20,7 +17,8 @@ export default function PlaceholderTab({ tabId }) {
       </div>
       <h1 className="text-xl font-extrabold text-charcoal">{meta.title}</h1>
       <p className="mt-2 text-sm text-gray-500">
-        This section is coming soon. Use My Campus for your home feed.
+        Search is coming soon. Use the tabs below to open your timetable,
+        account, and payments.
       </p>
     </div>
   );

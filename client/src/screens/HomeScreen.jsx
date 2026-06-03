@@ -9,16 +9,16 @@ import LibraryCard from '../components/LibraryCard';
 import AppFeedbackCard from '../components/AppFeedbackCard';
 import FullWidthCards from '../components/FullWidthCards';
 
-export default function HomeScreen() {
+export default function HomeScreen({ onNavigate }) {
   return (
     <>
       <TopBar />
       <main className="pb-4">
         <HeroCarousel />
-        <QuickGrid />
+        <QuickGrid onNavigate={onNavigate} />
         <NavCards />
         <CampusPhotoStrip />
-        <DailyEssentials />
+        <DailyEssentials onNavigate={onNavigate} />
         <FeatureCards />
         <LibraryCard />
         <AppFeedbackCard />

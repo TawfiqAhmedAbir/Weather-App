@@ -1,16 +1,16 @@
 import {
-  Bell,
-  Calendar,
+  CreditCard,
+  CalendarDays,
   Home,
   Search,
-  Settings,
+  UserRound,
 } from 'lucide-react';
 
 const TABS = [
   { id: 'campus', label: 'My Campus', icon: Home },
-  { id: 'settings', label: 'Settings', icon: Settings },
-  { id: 'calendar', label: 'Calendar', icon: Calendar },
-  { id: 'alerts', label: 'Alerts', icon: Bell, badge: true },
+  { id: 'timetable', label: 'Timetable', icon: CalendarDays },
+  { id: 'account', label: 'My Account', icon: UserRound },
+  { id: 'payments', label: 'Payments', icon: CreditCard, badge: true },
   { id: 'search', label: 'Search', icon: Search },
 ];
 
