@@ -1,5 +1,6 @@
 import { CalendarDays, Clock, MapPin } from 'lucide-react';
 import TopBar from '../components/TopBar';
+import TimetableWeek from '../components/TimetableWeek';
 import { EXAMS } from '../data/events';
 
 export default function CalendarScreen() {
@@ -9,7 +10,7 @@ export default function CalendarScreen() {
       <main className="px-4 pb-4 pt-2">
         <h1 className="mb-4 text-xl font-extrabold text-charcoal">Calendar</h1>
 
-        <section>
+        <section className="mb-6">
           <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-gray-500">
             Upcoming exams
           </h2>
@@ -42,6 +43,7 @@ export default function CalendarScreen() {
                   <p className="flex items-center gap-2">
                     <Clock className="h-4 w-4 shrink-0" />
                     {exam.time}
+                    {exam.endTime ? ` – ${exam.endTime}` : ''}
                   </p>
                   <p className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 shrink-0" />
@@ -51,6 +53,13 @@ export default function CalendarScreen() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section>
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-gray-500">
+            This week&apos;s timetable
+          </h2>
+          <TimetableWeek compact />
         </section>
       </main>
     </>

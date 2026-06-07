@@ -9,20 +9,20 @@ import LibraryCard from '../components/LibraryCard';
 import AppFeedbackCard from '../components/AppFeedbackCard';
 import FullWidthCards from '../components/FullWidthCards';
 
-export default function HomeScreen() {
+export default function HomeScreen({ onOpenTimetable }) {
   return (
     <>
       <TopBar />
       <main className="pb-4">
         <HeroCarousel />
-        <QuickGrid />
+        <QuickGrid onOpenTimetable={onOpenTimetable} />
         <NavCards />
         <CampusPhotoStrip />
         <DailyEssentials />
         <FeatureCards />
         <LibraryCard />
         <AppFeedbackCard />
-        <FullWidthCards />
+        <FullWidthCards onOpenTimetable={onOpenTimetable} />
       </main>
     </>
   );

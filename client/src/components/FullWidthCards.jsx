@@ -8,10 +8,13 @@ import {
 } from 'lucide-react';
 import PressableCard from './PressableCard';
 
-export default function FullWidthCards() {
+export default function FullWidthCards({ onOpenTimetable }) {
   return (
     <section className="mx-3 mt-3 space-y-2 pb-2">
-      <PressableCard className="flex w-full items-center gap-3 rounded-2xl bg-secondary p-4 shadow-card">
+      <PressableCard
+        onClick={onOpenTimetable}
+        className="flex w-full items-center gap-3 rounded-2xl bg-secondary p-4 shadow-card"
+      >
         <div className="flex gap-2">
           <Calendar className="h-6 w-6 text-white" strokeWidth={2} />
           <Megaphone className="h-6 w-6 text-white" strokeWidth={2} />

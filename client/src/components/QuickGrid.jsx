@@ -8,7 +8,7 @@ import { getTimeGreeting } from '../utils/greeting';
 
 const USER_NAME = 'Alex';
 
-export default function QuickGrid() {
+export default function QuickGrid({ onOpenTimetable }) {
   const greeting = getTimeGreeting();
 
   return (
@@ -34,7 +34,10 @@ export default function QuickGrid() {
         </p>
       </PressableCard>
 
-      <PressableCard className="col-span-2 flex min-h-[72px] items-end gap-2 rounded-2xl bg-charcoal p-3 shadow-card">
+      <PressableCard
+        onClick={onOpenTimetable}
+        className="col-span-2 flex min-h-[72px] items-end gap-2 rounded-2xl bg-charcoal p-3 shadow-card"
+      >
         <Calendar className="h-6 w-6 shrink-0 text-white" strokeWidth={2} />
         <p className="text-sm font-bold text-white">Timetable</p>
       </PressableCard>
