@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import BottomNav from './components/BottomNav';
 import HomeScreen from './screens/HomeScreen';
+import CalendarScreen from './screens/CalendarScreen';
 import PlaceholderTab from './screens/PlaceholderTab';
 
 export default function App() {
@@ -9,9 +10,9 @@ export default function App() {
   return (
     <div className="mx-auto min-h-screen w-full max-w-shell bg-white shadow-xl">
       <div className="scrollbar-hide max-h-screen overflow-y-auto pb-20">
-        {activeTab === 'campus' ? (
-          <HomeScreen />
-        ) : (
+        {activeTab === 'campus' && <HomeScreen />}
+        {activeTab === 'calendar' && <CalendarScreen />}
+        {activeTab !== 'campus' && activeTab !== 'calendar' && (
           <PlaceholderTab tabId={activeTab} />
         )}
       </div>

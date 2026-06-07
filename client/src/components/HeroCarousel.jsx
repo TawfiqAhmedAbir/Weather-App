@@ -3,6 +3,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const SLIDES = [
   {
+    title: 'Honors Information and Communication exam — 10th June',
+    subtitle: 'Check your timetable and arrive 15 minutes early.',
+  },
+  {
     title:
       'When you leave MyUni — Find out when you lose access to your IT accounts',
     subtitle: 'Remember to return any books you have borrowed!',
