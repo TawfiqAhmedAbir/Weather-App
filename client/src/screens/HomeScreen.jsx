@@ -8,6 +8,7 @@ import FeatureCards from '../components/FeatureCards';
 import LibraryCard from '../components/LibraryCard';
 import AppFeedbackCard from '../components/AppFeedbackCard';
 import FullWidthCards from '../components/FullWidthCards';
+import UpcomingWeekPreview from '../components/UpcomingWeekPreview';
 
 export default function HomeScreen({ onOpenTimetable }) {
   return (
@@ -16,6 +17,7 @@ export default function HomeScreen({ onOpenTimetable }) {
       <main className="pb-4">
         <HeroCarousel />
         <QuickGrid onOpenTimetable={onOpenTimetable} />
+        <UpcomingWeekPreview onOpenTimetable={onOpenTimetable} />
         <NavCards />
         <CampusPhotoStrip />
         <DailyEssentials />

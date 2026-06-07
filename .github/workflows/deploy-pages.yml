@@ -25,6 +25,8 @@ jobs:
 
       - name: Install and build
         working-directory: client
+        env:
+          VITE_BASE_PATH: /Weather-App/
         run: |
           npm ci
           npm run build
