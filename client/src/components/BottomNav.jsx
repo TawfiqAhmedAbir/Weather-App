@@ -14,7 +14,7 @@ const TABS = [
   { id: 'search', label: 'Search', icon: Search },
 ];
 
-export default function BottomNav({ activeTab, onTabChange }) {
+export default function BottomNav({ activeTab, onTabChange, alertCount = 0 }) {
   return (
     <nav className="fixed bottom-0 left-1/2 z-30 w-full max-w-shell -translate-x-1/2 border-t border-gray-200 bg-white px-1 pb-[env(safe-area-inset-bottom)] shadow-[0_-2px_12px_rgba(0,0,0,0.08)]">
       <ul className="flex items-stretch justify-around">
@@ -34,8 +34,10 @@ export default function BottomNav({ activeTab, onTabChange }) {
                     className="h-5 w-5"
                     strokeWidth={isActive ? 2.5 : 2}
                   />
-                  {badge && (
-                    <span className="absolute -right-1 -top-0.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
+                  {badge && alertCount > 0 && (
+                    <span className="absolute -right-1 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-0.5 text-[9px] font-bold text-white ring-2 ring-white">
+                      {alertCount}
+                    </span>
                   )}
                 </span>
                 <span className="leading-tight">{label}</span>

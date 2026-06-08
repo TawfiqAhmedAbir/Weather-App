@@ -1,15 +1,25 @@
 import {
+  Building2,
   GraduationCap,
   Hash,
   Mail,
+  MapPin,
   User,
 } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader';
 import { STUDENT } from '../data/student';
+import { openExternal, EXTERNAL_LINKS } from '../data/links';
 
-function InfoRow({ icon: Icon, label, value }) {
+function InfoRow({ icon: Icon, label, value, onClick }) {
+  const Tag = onClick ? 'button' : 'div';
   return (
-    <div className="flex items-start gap-3 rounded-xl bg-gray-50 p-3">
+    <Tag
+      type={onClick ? 'button' : undefined}
+      onClick={onClick}
+      className={`flex w-full items-start gap-3 rounded-xl bg-gray-50 p-3 text-left ${
+        onClick ? 'transition-colors hover:bg-gray-100' : ''
+      }`}
+    >
       <div className="rounded-lg bg-primary/10 p-2">
         <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
       </div>
@@ -19,7 +29,7 @@ function InfoRow({ icon: Icon, label, value }) {
         </p>
         <p className="text-sm font-extrabold text-charcoal">{value}</p>
       </div>
-    </div>
+    </Tag>
   );
 }
 
@@ -40,20 +50,21 @@ export default function MyAccountScreen({ onBack }) {
 
         <section className="space-y-2">
           <InfoRow icon={User} label="Full name" value={STUDENT.fullName} />
-          <InfoRow
-            icon={Hash}
-            label="Student ID"
-            value={STUDENT.studentId}
-          />
+          <InfoRow icon={Hash} label="Student ID" value={STUDENT.studentId} />
           <InfoRow
             icon={GraduationCap}
             label="Programme"
             value={STUDENT.programme}
           />
           <InfoRow icon={GraduationCap} label="Year of study" value={STUDENT.year} />
-          {STUDENT.email ? (
-            <InfoRow icon={Mail} label="University email" value={STUDENT.email} />
-          ) : null}
+          <InfoRow icon={Building2} label="Faculty" value={STUDENT.faculty} />
+          <InfoRow icon={MapPin} label="Campus" value={STUDENT.campus} />
+          <InfoRow
+            icon={Mail}
+            label="University email"
+            value={STUDENT.email}
+            onClick={() => openExternal(EXTERNAL_LINKS.email)}
+          />
         </section>
       </main>
     </>

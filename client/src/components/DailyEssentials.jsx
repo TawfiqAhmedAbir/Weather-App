@@ -1,4 +1,5 @@
 import PressableCard from './PressableCard';
+import { openExternal, EXTERNAL_LINKS } from '../data/links';
 
 function EmailIcon() {
   return (
@@ -33,15 +34,36 @@ function TeamsIcon() {
 }
 
 const ITEMS = [
-  { id: 'email', label: 'Email', icon: EmailIcon },
-  { id: 'moodle', label: 'Moodle', icon: MoodleIcon },
-  { id: 'myAccount', label: 'MyAccount', icon: MyAccountIcon },
-  { id: 'teams', label: 'Teams', icon: TeamsIcon },
+  {
+    id: 'email',
+    label: 'Email',
+    icon: EmailIcon,
+    action: () => openExternal(EXTERNAL_LINKS.outlook),
+  },
+  {
+    id: 'moodle',
+    label: 'Moodle',
+    icon: MoodleIcon,
+    action: () => openExternal(EXTERNAL_LINKS.moodle),
+  },
+  {
+    id: 'myAccount',
+    label: 'MyAccount',
+    icon: MyAccountIcon,
+    screen: 'myAccount',
+  },
+  {
+    id: 'teams',
+    label: 'Teams',
+    icon: TeamsIcon,
+    action: () => openExternal(EXTERNAL_LINKS.teams),
+  },
 ];
 
 export default function DailyEssentials({ onOpenMyAccount }) {
-  const handleClick = (id) => {
-    if (id === 'myAccount') onOpenMyAccount?.();
+  const handleClick = (item) => {
+    if (item.screen === 'myAccount') onOpenMyAccount?.();
+    else item.action?.();
   };
 
   return (
@@ -50,18 +72,21 @@ export default function DailyEssentials({ onOpenMyAccount }) {
         Daily essentials
       </h2>
       <div className="grid grid-cols-4 gap-2">
-        {ITEMS.map(({ id, label, icon: Icon }) => (
-          <PressableCard
-            key={id}
-            onClick={() => handleClick(id)}
-            className="flex flex-col items-center gap-2"
-          >
-            <Icon />
-            <span className="text-center text-[10px] font-bold text-charcoal">
-              {label}
-            </span>
-          </PressableCard>
-        ))}
+        {ITEMS.map((item) => {
+          const Icon = item.icon;
+          return (
+            <PressableCard
+              key={item.id}
+              onClick={() => handleClick(item)}
+              className="flex flex-col items-center gap-2"
+            >
+              <Icon />
+              <span className="text-center text-[10px] font-bold text-charcoal">
+                {item.label}
+              </span>
+            </PressableCard>
+          );
+        })}
       </div>
     </section>
   );

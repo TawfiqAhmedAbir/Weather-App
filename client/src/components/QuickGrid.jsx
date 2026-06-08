@@ -11,6 +11,8 @@ export default function QuickGrid({
   onOpenTimetable,
   onOpenAttendance,
   onOpenMyAccount,
+  onOpenAbsence,
+  onOpenLibrary,
 }) {
   const greeting = getTimeGreeting();
 
@@ -28,7 +30,10 @@ export default function QuickGrid({
         </p>
       </PressableCard>
 
-      <PressableCard className="col-span-1 flex min-h-[88px] flex-col items-start justify-between rounded-2xl bg-charcoal p-3 text-left shadow-card">
+      <PressableCard
+        onClick={onOpenAbsence}
+        className="col-span-1 flex min-h-[88px] flex-col items-start justify-between rounded-2xl bg-charcoal p-3 text-left shadow-card"
+      >
         <CirclePause className="h-6 w-6 text-white" strokeWidth={2} />
         <p className="text-[11px] font-bold leading-tight text-white">
           Log an absence
@@ -54,14 +59,17 @@ export default function QuickGrid({
       </PressableCard>
 
       <PressableCard
+        onClick={onOpenLibrary}
         className="col-span-1 min-h-[72px] overflow-hidden rounded-2xl shadow-card"
         aria-label="Library"
       >
         <div
-          className="h-full w-full bg-gradient-to-br from-slate-400 via-slate-500 to-slate-700"
+          className="flex h-full min-h-[72px] flex-col items-start justify-end bg-gradient-to-br from-slate-400 via-slate-500 to-slate-700 p-2"
           role="img"
-          aria-label="Library interior placeholder"
-        />
+          aria-label="Library"
+        >
+          <p className="text-[10px] font-bold text-white">Library</p>
+        </div>
       </PressableCard>
     </section>
   );

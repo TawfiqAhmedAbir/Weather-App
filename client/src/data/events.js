@@ -28,3 +28,66 @@ export const EXAMS = [
     location: 'Main Hall',
   },
 ];
+
+export const COURSEWORK_DEADLINES = [
+  {
+    id: 'cw-jul-9',
+    title: 'Coursework submission',
+    type: 'Deadline',
+    date: '2026-07-09',
+    displayDate: '9th July',
+    day: 'Thursday',
+    dayNum: 9,
+    monthShort: 'Jul',
+    time: '23:59',
+    location: 'Moodle',
+    module: 'Big Data and Database Systems',
+  },
+  {
+    id: 'cw-jul-11',
+    title: 'Coursework submission',
+    type: 'Deadline',
+    date: '2026-07-11',
+    displayDate: '11th July',
+    day: 'Saturday',
+    dayNum: 11,
+    monthShort: 'Jul',
+    time: '23:59',
+    location: 'Moodle',
+    module: 'Object-oriented Programming',
+  },
+  {
+    id: 'cw-jul-15',
+    title: 'Coursework submission',
+    type: 'Deadline',
+    date: '2026-07-15',
+    displayDate: '15th July',
+    day: 'Wednesday',
+    dayNum: 15,
+    monthShort: 'Jul',
+    time: '23:59',
+    location: 'Moodle',
+    module: 'ICT Project Management in Practice',
+  },
+];
+
+export const MILESTONES = [
+  {
+    id: 'graduation-2026',
+    title: 'Graduation',
+    type: 'Ceremony',
+    date: '2026-08-02',
+    displayDate: '2nd August',
+    day: 'Sunday',
+    dayNum: 2,
+    monthShort: 'Aug',
+    time: '14:00',
+    location: 'Royal Festival Hall',
+  },
+];
+
+export const ALL_CALENDAR_EVENTS = [
+  ...EXAMS,
+  ...COURSEWORK_DEADLINES,
+  ...MILESTONES,
+].sort((a, b) => a.date.localeCompare(b.date));

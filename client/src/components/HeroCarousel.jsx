@@ -1,39 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const SLIDES = [
-  {
-    title: 'Honors Information and Communication exam — 10th June',
-    subtitle: 'Check your timetable and arrive 15 minutes early.',
-  },
-  {
-    title: 'ICT Project Management in Practice exam — 16th June',
-    subtitle: '09:00 start · 1 hour 50 minutes. Arrive 15 minutes early.',
-  },
-  {
-    title:
-      'When you leave MyUni — Find out when you lose access to your IT accounts',
-    subtitle: 'Remember to return any books you have borrowed!',
-  },
-  {
-    title: 'Welcome to MyUni — Your campus companion',
-    subtitle: 'Check your timetable and attendance anytime.',
-  },
-  {
-    title: 'Student support is here for you',
-    subtitle: 'Visit Student Services for wellbeing and advice.',
-  },
-];
+import { ANNOUNCEMENTS } from '../data/content';
 
 export default function HeroCarousel() {
   const [index, setIndex] = useState(0);
 
   const next = useCallback(
-    () => setIndex((i) => (i + 1) % SLIDES.length),
+    () => setIndex((i) => (i + 1) % ANNOUNCEMENTS.length),
     []
   );
   const prev = useCallback(
-    () => setIndex((i) => (i - 1 + SLIDES.length) % SLIDES.length),
+    () => setIndex((i) => (i - 1 + ANNOUNCEMENTS.length) % ANNOUNCEMENTS.length),
     []
   );
 
@@ -42,7 +19,7 @@ export default function HeroCarousel() {
     return () => clearInterval(timer);
   }, [next]);
 
-  const slide = SLIDES[index];
+  const slide = ANNOUNCEMENTS[index];
 
   return (
     <section className="relative mx-3 mt-3 overflow-hidden rounded-2xl bg-primary shadow-card">
@@ -56,9 +33,7 @@ export default function HeroCarousel() {
       </button>
 
       <div className="px-10 py-5 text-center">
-        <p className="text-sm font-bold leading-snug text-white">
-          {slide.title}
-        </p>
+        <p className="text-sm font-bold leading-snug text-white">{slide.title}</p>
         <p className="mt-2 text-xs font-semibold text-secondary">
           {slide.subtitle}
         </p>
@@ -74,7 +49,7 @@ export default function HeroCarousel() {
       </button>
 
       <div className="flex justify-center gap-1.5 pb-3">
-        {SLIDES.map((_, i) => (
+        {ANNOUNCEMENTS.map((_, i) => (
           <button
             key={i}
             type="button"

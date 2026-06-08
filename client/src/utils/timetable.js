@@ -1,4 +1,4 @@
-import { EXAMS } from '../data/events';
+import { ALL_CALENDAR_EVENTS } from '../data/events';
 
 const DAY_NAMES = [
   'Monday',
@@ -47,14 +47,16 @@ function getWeekLabelForDays(days) {
   return `${first.dayNum} ${first.month} – ${last.dayNum} ${last.month} 2026`;
 }
 
-export function getExamWeekStarts() {
-  const weekStarts = [...new Set(EXAMS.map((exam) => getMondayOfWeek(exam.date)))];
+export function getEventWeekStarts() {
+  const weekStarts = [
+    ...new Set(ALL_CALENDAR_EVENTS.map((event) => getMondayOfWeek(event.date))),
+  ];
   return weekStarts.sort();
 }
 
 export function getTimetableForWeekStart(weekStartIso) {
-  const eventsByDate = EXAMS.reduce((acc, exam) => {
-    acc[exam.date] = [...(acc[exam.date] || []), exam];
+  const eventsByDate = ALL_CALENDAR_EVENTS.reduce((acc, event) => {
+    acc[event.date] = [...(acc[event.date] || []), event];
     return acc;
   }, {});
 
@@ -65,7 +67,7 @@ export function getTimetableForWeekStart(weekStartIso) {
 }
 
 export function getAllTimetableWeeks() {
-  return getExamWeekStarts().map((weekStart) => {
+  return getEventWeekStarts().map((weekStart) => {
     const days = getTimetableForWeekStart(weekStart);
     return {
       weekStart,
@@ -75,15 +77,6 @@ export function getAllTimetableWeeks() {
   });
 }
 
-// Backwards-compatible helpers for single-week callers
-export function getExamWeekDays() {
-  return getWeekDays(getMondayOfWeek(EXAMS[0].date));
-}
-
-export function getTimetableForWeek() {
-  return getTimetableForWeekStart(getMondayOfWeek(EXAMS[0].date));
-}
-
-export function getWeekLabel() {
-  return getWeekLabelForDays(getExamWeekDays());
+export function getUpcomingEvents(limit = 5) {
+  return [...ALL_CALENDAR_EVENTS].slice(0, limit);
 }

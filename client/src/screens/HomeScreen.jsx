@@ -11,28 +11,49 @@ import FullWidthCards from '../components/FullWidthCards';
 import UpcomingWeekPreview from '../components/UpcomingWeekPreview';
 
 export default function HomeScreen({
+  onMenu,
+  onRefresh,
   onOpenTimetable,
   onOpenMyAccount,
   onOpenAttendance,
+  onOpenAbsence,
+  onOpenLibrary,
+  onOpenMyCourse,
+  onOpenFeedback,
+  onNavigate,
+  onOpenWhatsOn,
+  onOpenSupport,
+  onOpenNews,
+  onOpenSkills,
 }) {
   return (
     <>
-      <TopBar />
+      <TopBar onMenu={onMenu} onRefresh={onRefresh} />
       <main className="pb-4">
         <HeroCarousel />
         <QuickGrid
           onOpenTimetable={onOpenTimetable}
           onOpenMyAccount={onOpenMyAccount}
           onOpenAttendance={onOpenAttendance}
+          onOpenAbsence={onOpenAbsence}
+          onOpenLibrary={onOpenLibrary}
         />
         <UpcomingWeekPreview onOpenTimetable={onOpenTimetable} />
-        <NavCards />
-        <CampusPhotoStrip />
+        <NavCards
+          onOpenSupport={onOpenSupport}
+          onOpenMyCourse={onOpenMyCourse}
+        />
+        <CampusPhotoStrip onOpenAroundCampus={() => onNavigate('aroundCampus')} />
         <DailyEssentials onOpenMyAccount={onOpenMyAccount} />
-        <FeatureCards />
-        <LibraryCard />
-        <AppFeedbackCard />
-        <FullWidthCards onOpenTimetable={onOpenTimetable} />
+        <FeatureCards onNavigate={onNavigate} />
+        <LibraryCard onOpenLibrary={onOpenLibrary} />
+        <AppFeedbackCard onOpenFeedback={onOpenFeedback} />
+        <FullWidthCards
+          onOpenWhatsOn={onOpenWhatsOn}
+          onOpenSupport={onOpenSupport}
+          onOpenNews={onOpenNews}
+          onOpenSkills={onOpenSkills}
+        />
       </main>
     </>
   );
