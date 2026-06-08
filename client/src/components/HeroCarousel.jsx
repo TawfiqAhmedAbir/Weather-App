@@ -7,6 +7,10 @@ const SLIDES = [
     subtitle: 'Check your timetable and arrive 15 minutes early.',
   },
   {
+    title: 'ICT Project Management in Practice exam — 16th June',
+    subtitle: '09:00 start · 1 hour 50 minutes. Arrive 15 minutes early.',
+  },
+  {
     title:
       'When you leave MyUni — Find out when you lose access to your IT accounts',
     subtitle: 'Remember to return any books you have borrowed!',

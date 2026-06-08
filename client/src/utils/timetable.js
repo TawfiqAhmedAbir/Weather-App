@@ -1,4 +1,4 @@
-import { EXAMS, EXAM_WEEK_ANCHOR } from '../data/events';
+import { EXAMS } from '../data/events';
 
 const DAY_NAMES = [
   'Monday',
@@ -10,8 +10,6 @@ const DAY_NAMES = [
   'Sunday',
 ];
 
-const DAY_SHORT = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
 function toIsoDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -19,10 +17,15 @@ function toIsoDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-export function getExamWeekDays() {
-  const anchor = new Date(`${EXAM_WEEK_ANCHOR}T12:00:00`);
+function getMondayOfWeek(isoDate) {
+  const anchor = new Date(`${isoDate}T12:00:00`);
   const monday = new Date(anchor);
   monday.setDate(anchor.getDate() - ((anchor.getDay() + 6) % 7));
+  return toIsoDate(monday);
+}
+
+function getWeekDays(weekStartIso) {
+  const monday = new Date(`${weekStartIso}T12:00:00`);
 
   return Array.from({ length: 7 }, (_, i) => {
     const date = new Date(monday);
@@ -32,28 +35,55 @@ export function getExamWeekDays() {
     return {
       date: iso,
       dayName: DAY_NAMES[i],
-      dayShort: DAY_SHORT[i],
       dayNum: date.getDate(),
       month: date.toLocaleString('en-GB', { month: 'short' }),
     };
   });
 }
 
-export function getTimetableForWeek() {
+function getWeekLabelForDays(days) {
+  const first = days[0];
+  const last = days[6];
+  return `${first.dayNum} ${first.month} – ${last.dayNum} ${last.month} 2026`;
+}
+
+export function getExamWeekStarts() {
+  const weekStarts = [...new Set(EXAMS.map((exam) => getMondayOfWeek(exam.date)))];
+  return weekStarts.sort();
+}
+
+export function getTimetableForWeekStart(weekStartIso) {
   const eventsByDate = EXAMS.reduce((acc, exam) => {
     acc[exam.date] = [...(acc[exam.date] || []), exam];
     return acc;
   }, {});
 
-  return getExamWeekDays().map((day) => ({
+  return getWeekDays(weekStartIso).map((day) => ({
     ...day,
     events: eventsByDate[day.date] || [],
   }));
 }
 
+export function getAllTimetableWeeks() {
+  return getExamWeekStarts().map((weekStart) => {
+    const days = getTimetableForWeekStart(weekStart);
+    return {
+      weekStart,
+      label: getWeekLabelForDays(days),
+      days,
+    };
+  });
+}
+
+// Backwards-compatible helpers for single-week callers
+export function getExamWeekDays() {
+  return getWeekDays(getMondayOfWeek(EXAMS[0].date));
+}
+
+export function getTimetableForWeek() {
+  return getTimetableForWeekStart(getMondayOfWeek(EXAMS[0].date));
+}
+
 export function getWeekLabel() {
-  const days = getExamWeekDays();
-  const first = days[0];
-  const last = days[6];
-  return `${first.dayNum} ${first.month} – ${last.dayNum} ${last.month} 2026`;
+  return getWeekLabelForDays(getExamWeekDays());
 }

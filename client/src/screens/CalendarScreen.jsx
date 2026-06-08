@@ -30,8 +30,12 @@ export default function CalendarScreen() {
                     </h3>
                   </div>
                   <div className="shrink-0 rounded-xl bg-white/15 px-3 py-2 text-center">
-                    <p className="text-lg font-extrabold leading-none">10</p>
-                    <p className="text-[10px] font-bold uppercase">Jun</p>
+                    <p className="text-lg font-extrabold leading-none">
+                      {exam.dayNum}
+                    </p>
+                    <p className="text-[10px] font-bold uppercase">
+                      {exam.monthShort}
+                    </p>
                   </div>
                 </div>
 
@@ -44,6 +48,7 @@ export default function CalendarScreen() {
                     <Clock className="h-4 w-4 shrink-0" />
                     {exam.time}
                     {exam.endTime ? ` – ${exam.endTime}` : ''}
+                    {exam.duration ? ` (${exam.duration})` : ''}
                   </p>
                   <p className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 shrink-0" />
@@ -57,7 +62,7 @@ export default function CalendarScreen() {
 
         <section>
           <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-gray-500">
-            This week&apos;s timetable
+            Exam weeks timetable
           </h2>
           <TimetableWeek compact />
         </section>

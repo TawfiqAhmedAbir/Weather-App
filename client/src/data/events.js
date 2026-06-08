@@ -1,15 +1,30 @@
-export const EXAM_WEEK_ANCHOR = '2026-06-10';
-
 export const EXAMS = [
   {
     id: 'honors-info-comm-2026',
     title: 'Honors Information and Communication',
     type: 'Exam',
-    date: EXAM_WEEK_ANCHOR,
+    date: '2026-06-10',
     displayDate: '10th June',
     day: 'Wednesday',
+    dayNum: 10,
+    monthShort: 'Jun',
     time: '09:00',
     endTime: '12:00',
+    duration: '3 hours',
+    location: 'Main Hall',
+  },
+  {
+    id: 'ict-project-mgmt-2026',
+    title: 'ICT Project Management in Practice',
+    type: 'Exam',
+    date: '2026-06-16',
+    displayDate: '16th June',
+    day: 'Tuesday',
+    dayNum: 16,
+    monthShort: 'Jun',
+    time: '09:00',
+    endTime: '10:50',
+    duration: '1 hour 50 minutes',
     location: 'Main Hall',
   },
 ];
