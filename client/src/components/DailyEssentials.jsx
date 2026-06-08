@@ -19,7 +19,7 @@ function MoodleIcon() {
 function MyAccountIcon() {
   return (
     <div className="flex h-11 w-11 items-center justify-center rounded-full bg-black">
-      <span className="text-lg font-bold text-white">?</span>
+      <span className="text-lg font-bold text-white">T</span>
     </div>
   );
 }
@@ -33,22 +33,27 @@ function TeamsIcon() {
 }
 
 const ITEMS = [
-  { label: 'Email', icon: EmailIcon },
-  { label: 'Moodle', icon: MoodleIcon },
-  { label: 'MyAccount', icon: MyAccountIcon },
-  { label: 'Teams', icon: TeamsIcon },
+  { id: 'email', label: 'Email', icon: EmailIcon },
+  { id: 'moodle', label: 'Moodle', icon: MoodleIcon },
+  { id: 'myAccount', label: 'MyAccount', icon: MyAccountIcon },
+  { id: 'teams', label: 'Teams', icon: TeamsIcon },
 ];
 
-export default function DailyEssentials() {
+export default function DailyEssentials({ onOpenMyAccount }) {
+  const handleClick = (id) => {
+    if (id === 'myAccount') onOpenMyAccount?.();
+  };
+
   return (
     <section className="mx-3 mt-4 rounded-2xl bg-white p-4 shadow-card">
       <h2 className="mb-4 text-base font-extrabold text-black">
         Daily essentials
       </h2>
       <div className="grid grid-cols-4 gap-2">
-        {ITEMS.map(({ label, icon: Icon }) => (
+        {ITEMS.map(({ id, label, icon: Icon }) => (
           <PressableCard
-            key={label}
+            key={id}
+            onClick={() => handleClick(id)}
             className="flex flex-col items-center gap-2"
           >
             <Icon />

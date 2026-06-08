@@ -10,17 +10,25 @@ import AppFeedbackCard from '../components/AppFeedbackCard';
 import FullWidthCards from '../components/FullWidthCards';
 import UpcomingWeekPreview from '../components/UpcomingWeekPreview';
 
-export default function HomeScreen({ onOpenTimetable }) {
+export default function HomeScreen({
+  onOpenTimetable,
+  onOpenMyAccount,
+  onOpenAttendance,
+}) {
   return (
     <>
       <TopBar />
       <main className="pb-4">
         <HeroCarousel />
-        <QuickGrid onOpenTimetable={onOpenTimetable} />
+        <QuickGrid
+          onOpenTimetable={onOpenTimetable}
+          onOpenMyAccount={onOpenMyAccount}
+          onOpenAttendance={onOpenAttendance}
+        />
         <UpcomingWeekPreview onOpenTimetable={onOpenTimetable} />
         <NavCards />
         <CampusPhotoStrip />
-        <DailyEssentials />
+        <DailyEssentials onOpenMyAccount={onOpenMyAccount} />
         <FeatureCards />
         <LibraryCard />
         <AppFeedbackCard />

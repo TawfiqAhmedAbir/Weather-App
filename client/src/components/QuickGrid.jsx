@@ -5,19 +5,27 @@ import {
 } from 'lucide-react';
 import PressableCard from './PressableCard';
 import { getTimeGreeting } from '../utils/greeting';
+import { STUDENT } from '../data/student';
 
-const USER_NAME = 'Alex';
-
-export default function QuickGrid({ onOpenTimetable }) {
+export default function QuickGrid({
+  onOpenTimetable,
+  onOpenAttendance,
+  onOpenMyAccount,
+}) {
   const greeting = getTimeGreeting();
 
   return (
     <section className="mx-3 mt-3 grid grid-cols-3 gap-2">
-      <PressableCard className="col-span-1 flex min-h-[88px] flex-col justify-end rounded-2xl bg-secondary p-3 text-left shadow-card">
+      <PressableCard
+        onClick={onOpenMyAccount}
+        className="col-span-1 flex min-h-[88px] flex-col justify-end rounded-2xl bg-secondary p-3 text-left shadow-card"
+      >
         <p className="text-[11px] font-bold leading-tight text-white">
           {greeting},
         </p>
-        <p className="text-sm font-extrabold text-white">{USER_NAME}</p>
+        <p className="text-sm font-extrabold text-white">
+          {STUDENT.preferredName}
+        </p>
       </PressableCard>
 
       <PressableCard className="col-span-1 flex min-h-[88px] flex-col items-start justify-between rounded-2xl bg-charcoal p-3 text-left shadow-card">
@@ -27,7 +35,10 @@ export default function QuickGrid({ onOpenTimetable }) {
         </p>
       </PressableCard>
 
-      <PressableCard className="col-span-1 flex min-h-[88px] flex-col items-start justify-between rounded-2xl bg-charcoal p-3 text-left shadow-card">
+      <PressableCard
+        onClick={onOpenAttendance}
+        className="col-span-1 flex min-h-[88px] flex-col items-start justify-between rounded-2xl bg-charcoal p-3 text-left shadow-card"
+      >
         <CalendarCheck className="h-6 w-6 text-white" strokeWidth={2} />
         <p className="text-[11px] font-bold leading-tight text-white">
           Attendance
