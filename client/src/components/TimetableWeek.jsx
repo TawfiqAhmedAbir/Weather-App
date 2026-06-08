@@ -1,6 +1,12 @@
 import { Clock, MapPin } from 'lucide-react';
 import { getAllTimetableWeeks } from '../utils/timetable';
 
+function eventStyles(type) {
+  if (type === 'Deadline') return 'bg-secondary';
+  if (type === 'Ceremony') return 'bg-charcoal';
+  return 'bg-primary';
+}
+
 function WeekDays({ days }) {
   return (
     <ul className="space-y-2">
@@ -41,25 +47,27 @@ function WeekDays({ days }) {
                 {day.events.map((event) => (
                   <li
                     key={event.id}
-                    className="rounded-xl bg-primary p-3 text-white"
+                    className={`rounded-xl p-3 text-white ${eventStyles(event.type)}`}
                   >
-                    <p className="text-[10px] font-bold uppercase text-secondary">
+                    <p className="text-[10px] font-bold uppercase text-white/80">
                       {event.type}
                     </p>
-                      <p className="text-sm font-extrabold leading-snug">
-                        {event.title}
-                        {event.module ? ` — ${event.module}` : ''}
-                      </p>
+                    <p className="text-sm font-extrabold leading-snug">
+                      {event.title}
+                      {event.module ? ` — ${event.module}` : ''}
+                    </p>
                     <p className="mt-1.5 flex items-center gap-1.5 text-xs font-semibold text-white/95">
                       <Clock className="h-3.5 w-3.5 shrink-0" />
                       {event.time}
                       {event.endTime ? ` – ${event.endTime}` : ''}
                       {event.duration ? ` (${event.duration})` : ''}
                     </p>
-                    <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-white/95">
-                      <MapPin className="h-3.5 w-3.5 shrink-0" />
-                      {event.location}
-                    </p>
+                    {event.location && (
+                      <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-white/95">
+                        <MapPin className="h-3.5 w-3.5 shrink-0" />
+                        {event.location}
+                      </p>
+                    )}
                   </li>
                 ))}
               </ul>

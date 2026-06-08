@@ -3,7 +3,7 @@ import PressableCard from './PressableCard';
 import { ALL_CALENDAR_EVENTS } from '../data/events';
 
 export default function UpcomingWeekPreview({ onOpenTimetable }) {
-  const upcoming = ALL_CALENDAR_EVENTS.slice(0, 4);
+  const upcoming = ALL_CALENDAR_EVENTS;
 
   return (
     <section className="mx-3 mt-3">

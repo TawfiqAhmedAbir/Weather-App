@@ -1,22 +1,22 @@
-import { ArrowLeft } from 'lucide-react';
+import ScreenHeader from '../components/ScreenHeader';
 import TimetableWeek from '../components/TimetableWeek';
+import { getTimetableRangeLabel } from '../utils/timetable';
+import { ALL_CALENDAR_EVENTS } from '../data/events';
 
 export default function TimetableScreen({ onBack }) {
+  const rangeLabel = getTimetableRangeLabel();
+  const eventCount = ALL_CALENDAR_EVENTS.length;
+
   return (
     <>
-      <header className="sticky top-0 z-20 flex items-center gap-3 bg-white px-4 py-3 shadow-sm">
-        <button
-          type="button"
-          onClick={onBack}
-          aria-label="Back"
-          className="rounded-full p-1 text-charcoal transition-colors hover:text-primary"
-        >
-          <ArrowLeft className="h-5 w-5" strokeWidth={2} />
-        </button>
-        <h1 className="text-lg font-extrabold text-charcoal">Timetable</h1>
-      </header>
-
+      <ScreenHeader title="Timetable" onBack={onBack} />
       <main className="px-4 pb-4 pt-2">
+        <p className="mb-1 text-sm font-extrabold text-charcoal">
+          {rangeLabel}
+        </p>
+        <p className="mb-4 text-xs font-semibold text-gray-500">
+          {eventCount} events through graduation
+        </p>
         <TimetableWeek />
       </main>
     </>

@@ -47,11 +47,26 @@ function getWeekLabelForDays(days) {
   return `${first.dayNum} ${first.month} – ${last.dayNum} ${last.month} 2026`;
 }
 
-export function getEventWeekStarts() {
-  const weekStarts = [
-    ...new Set(ALL_CALENDAR_EVENTS.map((event) => getMondayOfWeek(event.date))),
-  ];
-  return weekStarts.sort();
+/** Every Monday from the first event week through graduation week (inclusive). */
+export function getTimetableWeekStarts() {
+  if (ALL_CALENDAR_EVENTS.length === 0) return [];
+
+  const sorted = [...ALL_CALENDAR_EVENTS].sort((a, b) =>
+    a.date.localeCompare(b.date)
+  );
+  const firstWeek = getMondayOfWeek(sorted[0].date);
+  const lastWeek = getMondayOfWeek(sorted[sorted.length - 1].date);
+
+  const weeks = [];
+  const cursor = new Date(`${firstWeek}T12:00:00`);
+  const end = new Date(`${lastWeek}T12:00:00`);
+
+  while (cursor <= end) {
+    weeks.push(toIsoDate(cursor));
+    cursor.setDate(cursor.getDate() + 7);
+  }
+
+  return weeks;
 }
 
 export function getTimetableForWeekStart(weekStartIso) {
@@ -67,7 +82,7 @@ export function getTimetableForWeekStart(weekStartIso) {
 }
 
 export function getAllTimetableWeeks() {
-  return getEventWeekStarts().map((weekStart) => {
+  return getTimetableWeekStarts().map((weekStart) => {
     const days = getTimetableForWeekStart(weekStart);
     return {
       weekStart,
@@ -77,6 +92,14 @@ export function getAllTimetableWeeks() {
   });
 }
 
-export function getUpcomingEvents(limit = 5) {
-  return [...ALL_CALENDAR_EVENTS].slice(0, limit);
+export function getTimetableRangeLabel() {
+  const weeks = getAllTimetableWeeks();
+  if (weeks.length === 0) return '';
+  const first = weeks[0].days[0];
+  const last = weeks[weeks.length - 1].days[6];
+  return `${first.dayNum} ${first.month} – ${last.dayNum} ${last.month} 2026`;
+}
+
+export function getUpcomingEvents() {
+  return [...ALL_CALENDAR_EVENTS];
 }
