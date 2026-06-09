@@ -5,7 +5,7 @@ export const ANNOUNCEMENTS = [
   },
   {
     title: 'ICT Project Management in Practice exam — 16th June',
-    subtitle: '09:00 start · 1 hour 50 minutes. Arrive 15 minutes early.',
+    subtitle: '13:00 start · 1 hour 50 minutes. Arrive 15 minutes early.',
   },
   {
     title: 'Coursework deadlines in July — check Moodle',
@@ -21,7 +21,7 @@ export const ALERTS = [
   {
     id: 'alert-1',
     title: 'Exam reminder',
-    body: 'Honors Information and Communication exam on 10th June at 09:00.',
+    body: 'Honors Information and Communication exam on 10th June at 13:00.',
     date: '8 Jun 2026',
     read: false,
   },
