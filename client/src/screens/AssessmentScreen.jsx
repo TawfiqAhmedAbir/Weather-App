@@ -59,13 +59,15 @@ export default function AssessmentScreen({ onBack }) {
               </div>
 
               <div className="space-y-2">
-                {ASSESSMENT_TYPES.map(({ key, label }) => (
-                  <GradeRow
-                    key={key}
-                    label={label}
-                    value={mod.grades[key]}
-                  />
-                ))}
+                {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
+                  ({ key, label }) => (
+                    <GradeRow
+                      key={key}
+                      label={label}
+                      value={mod.grades[key]}
+                    />
+                  )
+                )}
               </div>
             </li>
           ))}
