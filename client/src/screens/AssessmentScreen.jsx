@@ -4,6 +4,7 @@ import {
   ASSESSMENT_TYPES,
   formatGrade,
   getFirstYearAssessments,
+  getModuleAverage,
   getSecondYearAssessments,
   getThirdYearAssessments,
   isPresentationBreakdown,
@@ -86,40 +87,66 @@ function PresentationGrades({ value, moduleCode, showUkGrade = false }) {
 }
 
 function ModuleAssessmentCard({ mod, showUkGrade = false }) {
-  return (
-    <li className="rounded-2xl border border-gray-100 bg-white p-4 shadow-card">
-      <div className="mb-3 flex items-start gap-3">
-        <div className="rounded-lg bg-primary/10 p-2">
-          <ClipboardCheck className="h-5 w-5 text-primary" strokeWidth={2} />
-        </div>
-        <div>
-          <p className="text-xs font-bold text-primary">{mod.code}</p>
-          <h3 className="text-sm font-extrabold leading-snug text-charcoal">
-            {mod.name}
-          </h3>
-        </div>
-      </div>
+  const average = getModuleAverage(mod);
+  const averageDisplay =
+    average === null
+      ? 'To be graded'
+      : formatGrade(average, { showUkGrade });
 
-      <div className="space-y-2">
-        {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
-          ({ key, label }) =>
-            key === 'presentation' ? (
-              <PresentationGrades
-                key={`${mod.code}-presentation`}
-                moduleCode={mod.code}
-                value={mod.grades[key]}
-                showUkGrade={showUkGrade}
-              />
-            ) : (
-              <GradeRow
-                key={key}
-                label={label}
-                value={mod.grades[key]}
-                showUkGrade={showUkGrade}
-              />
-            )
-        )}
-      </div>
+  return (
+    <li>
+      <details className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-card">
+        <summary className="flex cursor-pointer list-none items-start gap-3 p-4 marker:content-none [&::-webkit-details-marker]:hidden">
+          <div className="rounded-lg bg-primary/10 p-2">
+            <ClipboardCheck className="h-5 w-5 text-primary" strokeWidth={2} />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-bold text-primary">{mod.code}</p>
+            <h3 className="text-sm font-extrabold leading-snug text-charcoal">
+              {mod.name}
+            </h3>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+              Module average
+            </p>
+          </div>
+
+          <div className="flex shrink-0 flex-col items-end gap-1">
+            <span
+              className={`text-right text-sm font-extrabold leading-tight ${
+                average === null ? 'text-gray-400' : 'text-primary'
+              }`}
+            >
+              {averageDisplay}
+            </span>
+            <ChevronDown
+              className="h-4 w-4 text-gray-400 transition-transform group-open:rotate-180"
+              strokeWidth={2}
+            />
+          </div>
+        </summary>
+
+        <div className="space-y-2 border-t border-gray-100 px-4 pb-4 pt-3">
+          {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
+            ({ key, label }) =>
+              key === 'presentation' ? (
+                <PresentationGrades
+                  key={`${mod.code}-presentation`}
+                  moduleCode={mod.code}
+                  value={mod.grades[key]}
+                  showUkGrade={showUkGrade}
+                />
+              ) : (
+                <GradeRow
+                  key={key}
+                  label={label}
+                  value={mod.grades[key]}
+                  showUkGrade={showUkGrade}
+                />
+              )
+          )}
+        </div>
+      </details>
     </li>
   );
 }
@@ -145,19 +172,19 @@ export default function AssessmentScreen({ onBack }) {
       <ScreenHeader title="Assessment" onBack={onBack} />
       <main className="px-4 pb-6 pt-2">
         <p className="mb-4 text-sm text-gray-600">
-          Tap Presentation to view detailed marks.
+          Tap a module to view coursework, exam, and presentation breakdown.
         </p>
 
         <YearSection title="3rd Year">
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {thirdYearModules.map((mod) => (
-              <ModuleAssessmentCard key={mod.code} mod={mod} />
+              <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
             ))}
           </ul>
         </YearSection>
 
         <YearSection title="2nd Year">
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {secondYearModules.map((mod) => (
               <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
             ))}
@@ -165,7 +192,7 @@ export default function AssessmentScreen({ onBack }) {
         </YearSection>
 
         <YearSection title="1st Year">
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {firstYearModules.map((mod) => (
               <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
             ))}

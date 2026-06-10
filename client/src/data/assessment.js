@@ -176,3 +176,21 @@ export function isPresentationBreakdown(value) {
     Array.isArray(value.breakdown)
   );
 }
+
+export function getGradeNumeric(value) {
+  if (typeof value === 'number') return value;
+  if (isPresentationBreakdown(value)) return value.overall;
+  return null;
+}
+
+/** Average of all graded components for this module (coursework, exam, presentation). */
+export function getModuleAverage(mod) {
+  const values = mod.types
+    .map((type) => getGradeNumeric(mod.grades[type]))
+    .filter((v) => v !== null);
+
+  if (values.length === 0) return null;
+
+  const sum = values.reduce((total, value) => total + value, 0);
+  return Math.round(sum / values.length);
+}
