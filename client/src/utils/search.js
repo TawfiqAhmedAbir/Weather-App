@@ -9,6 +9,7 @@ import {
   WHATS_ON,
 } from '../data/content';
 import { LIBRARY_ACCOUNT } from '../data/library';
+import { YEAR_2_MODULES } from '../data/assessment';
 
 export function buildSearchIndex() {
   const items = [];
@@ -37,13 +38,13 @@ export function buildSearchIndex() {
     screen: 'assessment',
   });
 
-  MODULES.forEach((mod) => {
+  [...MODULES, ...YEAR_2_MODULES].forEach((mod) => {
     items.push({
       id: `mod-${mod.code}`,
       title: mod.name,
       subtitle: mod.code,
       category: 'Module',
-      screen: 'myCourse',
+      screen: 'assessment',
     });
   });
 

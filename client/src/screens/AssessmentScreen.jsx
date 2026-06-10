@@ -2,15 +2,15 @@ import { ChevronDown, ClipboardCheck } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader';
 import {
   ASSESSMENT_TYPES,
+  EMPTY_YEAR_MESSAGE,
   formatGrade,
-  getModuleAssessments,
+  getSecondYearAssessments,
+  getThirdYearAssessments,
   isPresentationBreakdown,
 } from '../data/assessment';
 
-const EMPTY_YEAR_MESSAGE = 'Full report will be published after graduation';
-
-function GradeRow({ label, value, nested = false }) {
-  const display = formatGrade(value);
+function GradeRow({ label, value, nested = false, showUkGrade = false }) {
+  const display = formatGrade(value, { showUkGrade });
   const isPercent =
     typeof value === 'number' ||
     (typeof value === 'object' && value?.overall != null);
@@ -18,20 +18,20 @@ function GradeRow({ label, value, nested = false }) {
 
   return (
     <div
-      className={`flex items-center justify-between rounded-xl bg-gray-50 px-3 py-2.5 ${
+      className={`flex items-center justify-between gap-2 rounded-xl bg-gray-50 px-3 py-2.5 ${
         nested ? 'ml-3 border-l-2 border-primary/20' : ''
       }`}
     >
       <span
-        className={`font-bold text-charcoal ${
+        className={`shrink-0 font-bold text-charcoal ${
           nested ? 'text-[11px]' : 'text-xs'
         }`}
       >
         {label}
       </span>
       <span
-        className={`font-extrabold ${
-          nested ? 'text-xs' : 'text-sm'
+        className={`text-right font-extrabold leading-tight ${
+          nested ? 'text-[11px]' : 'text-xs'
         } ${
           isPending
             ? 'text-gray-400'
@@ -46,21 +46,25 @@ function GradeRow({ label, value, nested = false }) {
   );
 }
 
-function PresentationGrades({ value, moduleCode }) {
+function PresentationGrades({ value, moduleCode, showUkGrade = false }) {
   if (!isPresentationBreakdown(value)) {
-    return <GradeRow label="Presentation" value={value} />;
+    return (
+      <GradeRow label="Presentation" value={value} showUkGrade={showUkGrade} />
+    );
   }
 
-  const display = formatGrade(value);
+  const display = formatGrade(value, { showUkGrade });
 
   return (
     <details className="group overflow-hidden rounded-xl bg-gray-50">
       <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-2.5 marker:content-none [&::-webkit-details-marker]:hidden">
         <span className="text-xs font-bold text-charcoal">Presentation</span>
         <span className="flex items-center gap-1.5">
-          <span className="text-sm font-extrabold text-primary">{display}</span>
+          <span className="text-right text-xs font-extrabold text-primary">
+            {display}
+          </span>
           <ChevronDown
-            className="h-4 w-4 text-gray-400 transition-transform group-open:rotate-180"
+            className="h-4 w-4 shrink-0 text-gray-400 transition-transform group-open:rotate-180"
             strokeWidth={2}
           />
         </span>
@@ -73,6 +77,7 @@ function PresentationGrades({ value, moduleCode }) {
             label={item.label}
             value={item.percent}
             nested
+            showUkGrade={showUkGrade}
           />
         ))}
       </div>
@@ -80,7 +85,7 @@ function PresentationGrades({ value, moduleCode }) {
   );
 }
 
-function ModuleAssessmentCard({ mod }) {
+function ModuleAssessmentCard({ mod, showUkGrade = false }) {
   return (
     <li className="rounded-2xl border border-gray-100 bg-white p-4 shadow-card">
       <div className="mb-3 flex items-start gap-3">
@@ -103,9 +108,15 @@ function ModuleAssessmentCard({ mod }) {
                 key={`${mod.code}-presentation`}
                 moduleCode={mod.code}
                 value={mod.grades[key]}
+                showUkGrade={showUkGrade}
               />
             ) : (
-              <GradeRow key={key} label={label} value={mod.grades[key]} />
+              <GradeRow
+                key={key}
+                label={label}
+                value={mod.grades[key]}
+                showUkGrade={showUkGrade}
+              />
             )
         )}
       </div>
@@ -133,7 +144,8 @@ function YearSection({ title, children }) {
 }
 
 export default function AssessmentScreen({ onBack }) {
-  const thirdYearModules = getModuleAssessments();
+  const thirdYearModules = getThirdYearAssessments();
+  const secondYearModules = getSecondYearAssessments();
 
   return (
     <>
@@ -152,7 +164,11 @@ export default function AssessmentScreen({ onBack }) {
         </YearSection>
 
         <YearSection title="2nd Year">
-          <EmptyYearSection />
+          <ul className="space-y-4">
+            {secondYearModules.map((mod) => (
+              <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
+            ))}
+          </ul>
         </YearSection>
 
         <YearSection title="1st Year">
