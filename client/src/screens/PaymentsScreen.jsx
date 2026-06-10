@@ -3,6 +3,13 @@ import TopBar from '../components/TopBar';
 
 const PAYMENTS = [
   {
+    id: 'PAY-2026-0610',
+    date: '10 June 2026',
+    description: 'Corner shop purchase',
+    method: 'Contactless card payment',
+    amount: '£4',
+  },
+  {
     id: 'PAY-2026-0603',
     date: '3 June 2026',
     description: 'Tuition fee payment',
@@ -19,7 +26,7 @@ const PAYMENTS = [
 ];
 
 export default function PaymentsScreen() {
-  const totalPaid = '£5,000';
+  const totalPaid = '£5,004';
 
   return (
     <>
@@ -33,7 +40,7 @@ export default function PaymentsScreen() {
               </p>
               <h1 className="mt-2 text-3xl font-extrabold">{totalPaid}</h1>
               <p className="mt-1 text-sm font-bold text-white/75">
-                Total paid across 2 completed payments
+                Total paid across 3 completed payments
               </p>
             </div>
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10">
@@ -49,7 +56,7 @@ export default function PaymentsScreen() {
               Latest
             </p>
             <p className="mt-1 text-sm font-extrabold text-charcoal">
-              3 June 2026
+              10 June 2026
             </p>
           </div>
           <div className="rounded-3xl bg-white p-4 shadow-card">
