@@ -1,4 +1,5 @@
-import { ClipboardCheck } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronDown, ClipboardCheck } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader';
 import {
   ASSESSMENT_TYPES,
@@ -44,22 +45,47 @@ function GradeRow({ label, value, nested = false }) {
   );
 }
 
-function PresentationGrades({ value }) {
+function PresentationGrades({ value, moduleCode }) {
+  const [expanded, setExpanded] = useState(false);
+
   if (!isPresentationBreakdown(value)) {
     return <GradeRow label="Presentation" value={value} />;
   }
 
+  const display = formatGrade(value);
+
   return (
     <div className="space-y-1.5">
-      <GradeRow label="Presentation" value={value} />
-      {value.breakdown.map((item) => (
-        <GradeRow
-          key={item.label}
-          label={item.label}
-          value={item.percent}
-          nested
-        />
-      ))}
+      <button
+        type="button"
+        onClick={() => setExpanded((open) => !open)}
+        aria-expanded={expanded}
+        className="flex w-full items-center justify-between rounded-xl bg-gray-50 px-3 py-2.5 text-left transition-colors hover:bg-gray-100 active:scale-[0.99]"
+      >
+        <span className="text-xs font-bold text-charcoal">Presentation</span>
+        <span className="flex items-center gap-1.5">
+          <span className="text-sm font-extrabold text-primary">{display}</span>
+          <ChevronDown
+            className={`h-4 w-4 text-gray-400 transition-transform ${
+              expanded ? 'rotate-180' : ''
+            }`}
+            strokeWidth={2}
+          />
+        </span>
+      </button>
+
+      {expanded && (
+        <div className="space-y-1.5">
+          {value.breakdown.map((item) => (
+            <GradeRow
+              key={`${moduleCode}-${item.label}`}
+              label={item.label}
+              value={item.percent}
+              nested
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -97,7 +123,11 @@ export default function AssessmentScreen({ onBack }) {
                 {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
                   ({ key, label }) =>
                     key === 'presentation' ? (
-                      <PresentationGrades key={key} value={mod.grades[key]} />
+                      <PresentationGrades
+                        key={key}
+                        moduleCode={mod.code}
+                        value={mod.grades[key]}
+                      />
                     ) : (
                       <GradeRow
                         key={key}
