@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ChevronDown, ClipboardCheck } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader';
 import {
@@ -46,8 +45,6 @@ function GradeRow({ label, value, nested = false }) {
 }
 
 function PresentationGrades({ value, moduleCode }) {
-  const [expanded, setExpanded] = useState(false);
-
   if (!isPresentationBreakdown(value)) {
     return <GradeRow label="Presentation" value={value} />;
   }
@@ -55,38 +52,29 @@ function PresentationGrades({ value, moduleCode }) {
   const display = formatGrade(value);
 
   return (
-    <div className="space-y-1.5">
-      <button
-        type="button"
-        onClick={() => setExpanded((open) => !open)}
-        aria-expanded={expanded}
-        className="flex w-full items-center justify-between rounded-xl bg-gray-50 px-3 py-2.5 text-left transition-colors hover:bg-gray-100 active:scale-[0.99]"
-      >
+    <details className="group overflow-hidden rounded-xl bg-gray-50">
+      <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-2.5 marker:content-none [&::-webkit-details-marker]:hidden">
         <span className="text-xs font-bold text-charcoal">Presentation</span>
         <span className="flex items-center gap-1.5">
           <span className="text-sm font-extrabold text-primary">{display}</span>
           <ChevronDown
-            className={`h-4 w-4 text-gray-400 transition-transform ${
-              expanded ? 'rotate-180' : ''
-            }`}
+            className="h-4 w-4 text-gray-400 transition-transform group-open:rotate-180"
             strokeWidth={2}
           />
         </span>
-      </button>
+      </summary>
 
-      {expanded && (
-        <div className="space-y-1.5">
-          {value.breakdown.map((item) => (
-            <GradeRow
-              key={`${moduleCode}-${item.label}`}
-              label={item.label}
-              value={item.percent}
-              nested
-            />
-          ))}
-        </div>
-      )}
-    </div>
+      <div className="space-y-1.5 border-t border-gray-200 px-1 pb-2 pt-1">
+        {value.breakdown.map((item) => (
+          <GradeRow
+            key={`${moduleCode}-${item.label}`}
+            label={item.label}
+            value={item.percent}
+            nested
+          />
+        ))}
+      </div>
+    </details>
   );
 }
 
@@ -98,7 +86,7 @@ export default function AssessmentScreen({ onBack }) {
       <ScreenHeader title="Assessment" onBack={onBack} />
       <main className="px-4 pb-6 pt-2">
         <p className="mb-4 text-sm text-gray-600">
-          Module grades across coursework, presentation, and exam and assessment.
+          Tap Presentation to view detailed marks.
         </p>
 
         <ul className="space-y-4">
@@ -124,7 +112,7 @@ export default function AssessmentScreen({ onBack }) {
                   ({ key, label }) =>
                     key === 'presentation' ? (
                       <PresentationGrades
-                        key={key}
+                        key={`${mod.code}-presentation`}
                         moduleCode={mod.code}
                         value={mod.grades[key]}
                       />
