@@ -181,14 +181,19 @@ export function getGradeNumeric(value) {
   return null;
 }
 
-/** Average of all graded components for this module (coursework, exam, presentation). */
+export function isGradePending(value) {
+  return getGradeNumeric(value) === null;
+}
+
+/** Average only when every component for this module has been graded. */
 export function getModuleAverage(mod) {
-  const values = mod.types
-    .map((type) => getGradeNumeric(mod.grades[type]))
-    .filter((v) => v !== null);
+  const components = mod.types.map((type) => mod.grades[type]);
 
-  if (values.length === 0) return null;
+  if (components.length === 0 || components.some(isGradePending)) {
+    return null;
+  }
 
+  const values = components.map(getGradeNumeric);
   const sum = values.reduce((total, value) => total + value, 0);
   return Math.round(sum / values.length);
 }
