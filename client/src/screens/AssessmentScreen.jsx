@@ -2,8 +2,8 @@ import { ChevronDown, ClipboardCheck } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader';
 import {
   ASSESSMENT_TYPES,
-  EMPTY_YEAR_MESSAGE,
   formatGrade,
+  getFirstYearAssessments,
   getSecondYearAssessments,
   getThirdYearAssessments,
   isPresentationBreakdown,
@@ -124,14 +124,6 @@ function ModuleAssessmentCard({ mod, showUkGrade = false }) {
   );
 }
 
-function EmptyYearSection() {
-  return (
-    <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
-      <p className="text-sm font-semibold text-gray-500">{EMPTY_YEAR_MESSAGE}</p>
-    </div>
-  );
-}
-
 function YearSection({ title, children }) {
   return (
     <section className="mb-6">
@@ -146,6 +138,7 @@ function YearSection({ title, children }) {
 export default function AssessmentScreen({ onBack }) {
   const thirdYearModules = getThirdYearAssessments();
   const secondYearModules = getSecondYearAssessments();
+  const firstYearModules = getFirstYearAssessments();
 
   return (
     <>
@@ -172,7 +165,11 @@ export default function AssessmentScreen({ onBack }) {
         </YearSection>
 
         <YearSection title="1st Year">
-          <EmptyYearSection />
+          <ul className="space-y-4">
+            {firstYearModules.map((mod) => (
+              <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
+            ))}
+          </ul>
         </YearSection>
       </main>
     </>

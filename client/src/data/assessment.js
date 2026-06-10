@@ -73,6 +73,39 @@ export const YEAR_2_MODULES = [
     code: 'COMP205',
     name: 'Object Oriented Programming',
     types: COURSEWORK_EXAM,
+    grades: { coursework: 86, examAndAssessment: 78 },
+  },
+  {
+    code: 'COMP206',
+    name: 'Data Structures and Algorithms',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 81, examAndAssessment: 77 },
+  },
+];
+
+export const YEAR_1_MODULES = [
+  {
+    code: 'COMP101',
+    name: 'Fundamentals of Computer Science',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 84, examAndAssessment: 82 },
+  },
+  {
+    code: 'COMP102',
+    name: 'Fundamentals of Software Development',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 83, examAndAssessment: 80 },
+  },
+  {
+    code: 'COMP103',
+    name: 'Discrete Mathematics',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 82, examAndAssessment: 81 },
+  },
+  {
+    code: 'COMP104',
+    name: 'Requirements Analysis and UCD',
+    types: COURSEWORK_EXAM,
     grades: { coursework: 76, examAndAssessment: 74 },
   },
 ];
@@ -104,6 +137,10 @@ export function getThirdYearAssessments() {
 
 export function getSecondYearAssessments() {
   return YEAR_2_MODULES.map((mod) => buildModuleRecord(mod));
+}
+
+export function getFirstYearAssessments() {
+  return YEAR_1_MODULES.map((mod) => buildModuleRecord(mod));
 }
 
 export function getUkGradeLabel(percent) {
