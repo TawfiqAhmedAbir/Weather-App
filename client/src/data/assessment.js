@@ -26,7 +26,14 @@ export const MODULE_ASSESSMENTS = {
     types: ['coursework', 'presentation', 'examAndAssessment'],
     grades: {
       coursework: 'To be graded',
-      presentation: 80,
+      presentation: {
+        overall: 83,
+        breakdown: [
+          { label: 'Content & Research', percent: 85 },
+          { label: 'Delivery & Communication', percent: 83 },
+          { label: 'Visual Materials & Structure', percent: 81 },
+        ],
+      },
       examAndAssessment: 74,
     },
   },
@@ -55,6 +62,17 @@ export function getModuleAssessments() {
 
 export function formatGrade(value) {
   if (value === null || value === undefined) return 'To be graded';
+  if (typeof value === 'object' && value.overall != null) {
+    return `${value.overall}%`;
+  }
   if (typeof value === 'number') return `${value}%`;
   return value;
+}
+
+export function isPresentationBreakdown(value) {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    Array.isArray(value.breakdown)
+  );
 }

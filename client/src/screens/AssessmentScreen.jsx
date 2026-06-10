@@ -4,18 +4,33 @@ import {
   ASSESSMENT_TYPES,
   formatGrade,
   getModuleAssessments,
+  isPresentationBreakdown,
 } from '../data/assessment';
 
-function GradeRow({ label, value }) {
+function GradeRow({ label, value, nested = false }) {
   const display = formatGrade(value);
-  const isPercent = typeof value === 'number';
+  const isPercent =
+    typeof value === 'number' ||
+    (typeof value === 'object' && value?.overall != null);
   const isPending = display === 'To be graded';
 
   return (
-    <div className="flex items-center justify-between rounded-xl bg-gray-50 px-3 py-2.5">
-      <span className="text-xs font-bold text-charcoal">{label}</span>
+    <div
+      className={`flex items-center justify-between rounded-xl bg-gray-50 px-3 py-2.5 ${
+        nested ? 'ml-3 border-l-2 border-primary/20' : ''
+      }`}
+    >
       <span
-        className={`text-sm font-extrabold ${
+        className={`font-bold text-charcoal ${
+          nested ? 'text-[11px]' : 'text-xs'
+        }`}
+      >
+        {label}
+      </span>
+      <span
+        className={`font-extrabold ${
+          nested ? 'text-xs' : 'text-sm'
+        } ${
           isPending
             ? 'text-gray-400'
             : isPercent
@@ -25,6 +40,26 @@ function GradeRow({ label, value }) {
       >
         {display}
       </span>
+    </div>
+  );
+}
+
+function PresentationGrades({ value }) {
+  if (!isPresentationBreakdown(value)) {
+    return <GradeRow label="Presentation" value={value} />;
+  }
+
+  return (
+    <div className="space-y-1.5">
+      <GradeRow label="Presentation" value={value} />
+      {value.breakdown.map((item) => (
+        <GradeRow
+          key={item.label}
+          label={item.label}
+          value={item.percent}
+          nested
+        />
+      ))}
     </div>
   );
 }
@@ -60,13 +95,16 @@ export default function AssessmentScreen({ onBack }) {
 
               <div className="space-y-2">
                 {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
-                  ({ key, label }) => (
-                    <GradeRow
-                      key={key}
-                      label={label}
-                      value={mod.grades[key]}
-                    />
-                  )
+                  ({ key, label }) =>
+                    key === 'presentation' ? (
+                      <PresentationGrades key={key} value={mod.grades[key]} />
+                    ) : (
+                      <GradeRow
+                        key={key}
+                        label={label}
+                        value={mod.grades[key]}
+                      />
+                    )
                 )}
               </div>
             </li>
