@@ -143,13 +143,13 @@ export function getFirstYearAssessments() {
   return YEAR_1_MODULES.map((mod) => buildModuleRecord(mod));
 }
 
-export function getUkGradeLabel(percent) {
-  if (percent >= 80) return { letter: 'A', classification: 'First' };
-  if (percent >= 70) return { letter: 'B', classification: 'First' };
-  if (percent >= 60) return { letter: 'C', classification: 'Upper Second (2:1)' };
-  if (percent >= 50) return { letter: 'D', classification: 'Lower Second (2:2)' };
-  if (percent >= 40) return { letter: 'E', classification: 'Third' };
-  return { letter: 'F', classification: 'Fail' };
+export function getUkLetterGrade(percent) {
+  if (percent >= 80) return 'A';
+  if (percent >= 70) return 'B';
+  if (percent >= 60) return 'C';
+  if (percent >= 50) return 'D';
+  if (percent >= 40) return 'E';
+  return 'F';
 }
 
 export function formatGrade(value, { showUkGrade = false } = {}) {
@@ -157,14 +157,12 @@ export function formatGrade(value, { showUkGrade = false } = {}) {
   if (typeof value === 'object' && value.overall != null) {
     const base = `${value.overall}%`;
     if (!showUkGrade) return base;
-    const uk = getUkGradeLabel(value.overall);
-    return `${base} · ${uk.letter} (${uk.classification})`;
+    return `${base} · ${getUkLetterGrade(value.overall)}`;
   }
   if (typeof value === 'number') {
     const base = `${value}%`;
     if (!showUkGrade) return base;
-    const uk = getUkGradeLabel(value);
-    return `${base} · ${uk.letter} (${uk.classification})`;
+    return `${base} · ${getUkLetterGrade(value)}`;
   }
   return value;
 }
