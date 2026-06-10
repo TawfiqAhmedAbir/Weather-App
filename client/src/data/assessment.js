@@ -69,6 +69,12 @@ export const YEAR_2_MODULES = [
     types: COURSEWORK_EXAM,
     grades: { coursework: 71, examAndAssessment: 73 },
   },
+  {
+    code: 'COMP205',
+    name: 'Object Oriented Programming',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 76, examAndAssessment: 74 },
+  },
 ];
 
 const DEFAULT_TYPES = ['coursework', 'presentation', 'examAndAssessment'];
