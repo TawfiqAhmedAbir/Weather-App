@@ -29,6 +29,11 @@ export const MODULES = [
     name: 'ICT Project Management in Practice',
     attendancePercent: 98,
   },
+  {
+    code: 'COMP504',
+    name: 'Honors Information and Communication',
+    attendancePercent: 95,
+  },
 ];
 
 export const ATTENDANCE = {
