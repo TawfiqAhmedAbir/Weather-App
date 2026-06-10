@@ -54,7 +54,7 @@ export const COURSEWORK_DEADLINES = [
     monthShort: 'Jul',
     time: '23:59',
     location: 'Moodle',
-    module: 'Object-oriented Programming',
+    module: 'AI Systems and Architecture',
   },
   {
     id: 'cw-jul-15',

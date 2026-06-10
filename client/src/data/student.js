@@ -21,7 +21,7 @@ export const MODULES = [
   },
   {
     code: 'COMP502',
-    name: 'Object-oriented Programming',
+    name: 'AI Systems and Architecture',
     attendancePercent: 96,
   },
   {
