@@ -73,13 +73,13 @@ export const YEAR_2_MODULES = [
     code: 'COMP205',
     name: 'Object Oriented Programming',
     types: COURSEWORK_EXAM,
-    grades: { coursework: 86, examAndAssessment: 78 },
+    grades: { coursework: 86, examAndAssessment: 86 },
   },
   {
     code: 'COMP206',
     name: 'Data Structures and Algorithms',
     types: COURSEWORK_EXAM,
-    grades: { coursework: 81, examAndAssessment: 77 },
+    grades: { coursework: 81, examAndAssessment: 81 },
   },
 ];
 
@@ -106,7 +106,7 @@ export const YEAR_1_MODULES = [
     code: 'COMP104',
     name: 'Requirements Analysis and UCD',
     types: COURSEWORK_EXAM,
-    grades: { coursework: 76, examAndAssessment: 74 },
+    grades: { coursework: 76, examAndAssessment: 76 },
   },
 ];
 
