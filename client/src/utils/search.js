@@ -29,6 +29,14 @@ export function buildSearchIndex() {
     screen: 'attendance',
   });
 
+  items.push({
+    id: 'assessment',
+    title: 'Assessment',
+    subtitle: 'Module grades and judgements',
+    category: 'Academic',
+    screen: 'assessment',
+  });
+
   MODULES.forEach((mod) => {
     items.push({
       id: `mod-${mod.code}`,

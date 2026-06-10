@@ -7,6 +7,7 @@ import MyAccountScreen from './screens/MyAccountScreen';
 import AttendanceScreen from './screens/AttendanceScreen';
 import AbsenceScreen from './screens/AbsenceScreen';
 import MyCourseScreen from './screens/MyCourseScreen';
+import AssessmentScreen from './screens/AssessmentScreen';
 import LibraryScreen from './screens/LibraryScreen';
 import FeedbackScreen from './screens/FeedbackScreen';
 import GetStartedScreen from './screens/GetStartedScreen';
@@ -73,6 +74,8 @@ export default function App() {
         return <AbsenceScreen onBack={closeOverlay} />;
       case 'myCourse':
         return <MyCourseScreen onBack={closeOverlay} />;
+      case 'assessment':
+        return <AssessmentScreen onBack={closeOverlay} />;
       case 'library':
         return <LibraryScreen onBack={closeOverlay} />;
       case 'feedback':
@@ -135,6 +138,7 @@ export default function App() {
     onOpenAbsence: () => navigate('absence'),
     onOpenLibrary: () => navigate('library'),
     onOpenMyCourse: () => navigate('myCourse'),
+    onOpenAssessment: () => navigate('assessment'),
     onOpenFeedback: () => navigate('feedback'),
     onOpenGetStarted: () => navigate('getStarted'),
     onOpenAroundCampus: () => navigate('aroundCampus'),

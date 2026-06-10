@@ -19,6 +19,7 @@ export default function HomeScreen({
   onOpenAbsence,
   onOpenLibrary,
   onOpenMyCourse,
+  onOpenAssessment,
   onOpenFeedback,
   onNavigate,
   onOpenWhatsOn,
@@ -40,6 +41,7 @@ export default function HomeScreen({
         />
         <UpcomingWeekPreview onOpenTimetable={onOpenTimetable} />
         <NavCards
+          onOpenAssessment={onOpenAssessment}
           onOpenSupport={onOpenSupport}
           onOpenMyCourse={onOpenMyCourse}
         />
