@@ -7,6 +7,8 @@ import {
   isPresentationBreakdown,
 } from '../data/assessment';
 
+const EMPTY_YEAR_MESSAGE = 'Full report will be published after graduation';
+
 function GradeRow({ label, value, nested = false }) {
   const display = formatGrade(value);
   const isPercent =
@@ -78,8 +80,60 @@ function PresentationGrades({ value, moduleCode }) {
   );
 }
 
+function ModuleAssessmentCard({ mod }) {
+  return (
+    <li className="rounded-2xl border border-gray-100 bg-white p-4 shadow-card">
+      <div className="mb-3 flex items-start gap-3">
+        <div className="rounded-lg bg-primary/10 p-2">
+          <ClipboardCheck className="h-5 w-5 text-primary" strokeWidth={2} />
+        </div>
+        <div>
+          <p className="text-xs font-bold text-primary">{mod.code}</p>
+          <h3 className="text-sm font-extrabold leading-snug text-charcoal">
+            {mod.name}
+          </h3>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
+          ({ key, label }) =>
+            key === 'presentation' ? (
+              <PresentationGrades
+                key={`${mod.code}-presentation`}
+                moduleCode={mod.code}
+                value={mod.grades[key]}
+              />
+            ) : (
+              <GradeRow key={key} label={label} value={mod.grades[key]} />
+            )
+        )}
+      </div>
+    </li>
+  );
+}
+
+function EmptyYearSection() {
+  return (
+    <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
+      <p className="text-sm font-semibold text-gray-500">{EMPTY_YEAR_MESSAGE}</p>
+    </div>
+  );
+}
+
+function YearSection({ title, children }) {
+  return (
+    <section className="mb-6">
+      <h2 className="mb-3 text-sm font-extrabold uppercase tracking-wide text-primary">
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
 export default function AssessmentScreen({ onBack }) {
-  const modules = getModuleAssessments();
+  const thirdYearModules = getModuleAssessments();
 
   return (
     <>
@@ -89,45 +143,21 @@ export default function AssessmentScreen({ onBack }) {
           Tap Presentation to view detailed marks.
         </p>
 
-        <ul className="space-y-4">
-          {modules.map((mod) => (
-            <li
-              key={mod.code}
-              className="rounded-2xl border border-gray-100 bg-white p-4 shadow-card"
-            >
-              <div className="mb-3 flex items-start gap-3">
-                <div className="rounded-lg bg-primary/10 p-2">
-                  <ClipboardCheck className="h-5 w-5 text-primary" strokeWidth={2} />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-primary">{mod.code}</p>
-                  <h2 className="text-sm font-extrabold leading-snug text-charcoal">
-                    {mod.name}
-                  </h2>
-                </div>
-              </div>
+        <YearSection title="3rd Year">
+          <ul className="space-y-4">
+            {thirdYearModules.map((mod) => (
+              <ModuleAssessmentCard key={mod.code} mod={mod} />
+            ))}
+          </ul>
+        </YearSection>
 
-              <div className="space-y-2">
-                {ASSESSMENT_TYPES.filter(({ key }) => mod.types.includes(key)).map(
-                  ({ key, label }) =>
-                    key === 'presentation' ? (
-                      <PresentationGrades
-                        key={`${mod.code}-presentation`}
-                        moduleCode={mod.code}
-                        value={mod.grades[key]}
-                      />
-                    ) : (
-                      <GradeRow
-                        key={key}
-                        label={label}
-                        value={mod.grades[key]}
-                      />
-                    )
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+        <YearSection title="2nd Year">
+          <EmptyYearSection />
+        </YearSection>
+
+        <YearSection title="1st Year">
+          <EmptyYearSection />
+        </YearSection>
       </main>
     </>
   );
