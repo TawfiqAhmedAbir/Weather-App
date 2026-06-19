@@ -24,7 +24,7 @@ export const MODULE_ASSESSMENTS = {
     types: COURSEWORK_EXAM,
     grades: {
       coursework: 'To be graded',
-      examAndAssessment: 'To be graded',
+      examAndAssessment: 81,
     },
   },
   COMP504: {
