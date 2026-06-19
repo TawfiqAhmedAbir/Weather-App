@@ -1,32 +1,89 @@
 import { CheckCircle2, CreditCard, Download, ReceiptText } from 'lucide-react';
 import TopBar from '../components/TopBar';
 
-const PAYMENTS = [
+const TRANSACTIONS = [
+  {
+    id: 'EXP-2026-0616-TFL',
+    date: '16 June 2026',
+    description: 'TFL charge',
+    method: 'Contactless travel payment',
+    amountPence: -780,
+  },
+  {
+    id: 'EXP-2026-0615-CURSOR',
+    date: '15 June 2026',
+    description: 'Cursor subscription',
+    method: 'Card subscription payment',
+    amountPence: -2000,
+  },
+  {
+    id: 'EXP-2026-0614-TFL',
+    date: '14 June 2026',
+    description: 'TFL charge',
+    method: 'Contactless travel payment',
+    amountPence: -600,
+  },
+  {
+    id: 'EXP-2026-0613-DAGENHAM-HALAL',
+    date: '13 June 2026',
+    description: 'Dagenham Halal Supermarket',
+    method: 'Card payment',
+    amountPence: -390,
+  },
+  {
+    id: 'EXP-2026-0612-DAGENHAM-CORNER',
+    date: '12 June 2026',
+    description: 'Dagenham corner expense',
+    method: 'Card payment',
+    amountPence: -480,
+  },
+  {
+    id: 'EXP-2026-0610-TFL',
+    date: '10 June 2026',
+    description: 'TFL charge',
+    method: 'Contactless travel payment',
+    amountPence: -780,
+  },
   {
     id: 'PAY-2026-0610',
     date: '10 June 2026',
     description: 'Corner shop purchase',
     method: 'Contactless card payment',
-    amount: '£4',
+    amountPence: 400,
   },
   {
     id: 'PAY-2026-0603',
     date: '3 June 2026',
     description: 'Tuition fee payment',
     method: 'Online card payment',
-    amount: '£4,100',
+    amountPence: 410000,
   },
   {
     id: 'PAY-2026-0116',
     date: '16 January 2026',
     description: 'Tuition deposit payment',
     method: 'Online bank transfer',
-    amount: '£900',
+    amountPence: 90000,
   },
 ];
 
+function formatPounds(amountPence) {
+  const absolutePounds = Math.abs(amountPence) / 100;
+  const hasPence = Math.abs(amountPence) % 100 !== 0;
+  const sign = amountPence < 0 ? '-' : '';
+
+  return `${sign}£${absolutePounds.toLocaleString('en-GB', {
+    minimumFractionDigits: hasPence ? 2 : 0,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
 export default function PaymentsScreen() {
-  const totalPaid = '£5,004';
+  const netTotalPence = TRANSACTIONS.reduce(
+    (total, transaction) => total + transaction.amountPence,
+    0,
+  );
+  const latestTransaction = TRANSACTIONS[0];
 
   return (
     <>
@@ -38,9 +95,11 @@ export default function PaymentsScreen() {
               <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/60">
                 Payment history
               </p>
-              <h1 className="mt-2 text-3xl font-extrabold">{totalPaid}</h1>
+              <h1 className="mt-2 text-3xl font-extrabold">
+                {formatPounds(netTotalPence)}
+              </h1>
               <p className="mt-1 text-sm font-bold text-white/75">
-                Total paid across 3 completed payments
+                Net total after {TRANSACTIONS.length} transactions
               </p>
             </div>
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10">
@@ -56,7 +115,7 @@ export default function PaymentsScreen() {
               Latest
             </p>
             <p className="mt-1 text-sm font-extrabold text-charcoal">
-              10 June 2026
+              {latestTransaction.date}
             </p>
           </div>
           <div className="rounded-3xl bg-white p-4 shadow-card">
@@ -76,12 +135,12 @@ export default function PaymentsScreen() {
               Transactions
             </h2>
             <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-extrabold text-green-700">
-              Paid
+              Ledger
             </span>
           </div>
 
           <div className="mt-4 space-y-3">
-            {PAYMENTS.map((payment) => (
+            {TRANSACTIONS.map((payment) => (
               <article
                 key={payment.id}
                 className="rounded-3xl border border-gray-100 bg-gray-50 p-4"
@@ -98,8 +157,12 @@ export default function PaymentsScreen() {
                       {payment.method}
                     </p>
                   </div>
-                  <p className="text-lg font-extrabold text-primary">
-                    {payment.amount}
+                  <p
+                    className={`text-lg font-extrabold ${
+                      payment.amountPence < 0 ? 'text-red-600' : 'text-primary'
+                    }`}
+                  >
+                    {formatPounds(payment.amountPence)}
                   </p>
                 </div>
                 <div className="mt-4 flex items-center justify-between border-t border-gray-200 pt-3">
