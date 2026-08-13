@@ -12,7 +12,11 @@ export const ANNOUNCEMENTS = [
     subtitle: 'Submissions due 9th, 11th and 15th July.',
   },
   {
-    title: 'Graduation — 2nd August 2026',
+    title: 'Final results — 28th August 2026',
+    subtitle: 'Your final results will be published on the MyUni portal.',
+  },
+  {
+    title: 'Graduation — 12th November 2026',
     subtitle: 'Congratulations! Details are in your graduation pack.',
   },
 ];
@@ -130,7 +134,7 @@ export const WHATS_ON = [
   {
     id: 'wo-2',
     title: 'Graduation ceremony',
-    date: '2nd August 2026',
+    date: '12th November 2026',
     location: 'Royal Festival Hall',
   },
   {
