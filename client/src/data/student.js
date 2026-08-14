@@ -16,13 +16,13 @@ export const STUDENT = {
 export const MODULES = [
   {
     code: 'COMP501',
-    name: 'Big Data and Database Systems',
-    attendancePercent: 94,
+    name: 'Honours Computer Science Project',
+    attendancePercent: 95,
   },
   {
     code: 'COMP502',
-    name: 'AI Systems and Architecture',
-    attendancePercent: 96,
+    name: 'Data Mining and Big Data Analytics',
+    attendancePercent: 94,
   },
   {
     code: 'COMP503',
@@ -31,8 +31,8 @@ export const MODULES = [
   },
   {
     code: 'COMP504',
-    name: 'Honors Information and Communication',
-    attendancePercent: 95,
+    name: 'Artificial Intelligence',
+    attendancePercent: 96,
   },
 ];
 

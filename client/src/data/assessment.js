@@ -12,23 +12,9 @@ export const EMPTY_YEAR_MESSAGE =
 const COURSEWORK_EXAM = ['coursework', 'examAndAssessment'];
 
 export const MODULE_ASSESSMENTS = {
+  // Honours Computer Science Project
   COMP501: {
-    types: ['coursework'],
-    grades: { coursework: 'To be graded' },
-  },
-  COMP502: {
-    types: ['coursework'],
-    grades: { coursework: 'To be graded' },
-  },
-  COMP503: {
-    types: COURSEWORK_EXAM,
-    grades: {
-      coursework: 'To be graded',
-      examAndAssessment: 81,
-    },
-  },
-  COMP504: {
-    types: ['coursework', 'presentation', 'examAndAssessment'],
+    types: ['coursework', 'presentation'],
     grades: {
       coursework: 'To be graded',
       presentation: {
@@ -39,6 +25,26 @@ export const MODULE_ASSESSMENTS = {
           { label: 'Visual Materials & Structure', percent: 81 },
         ],
       },
+    },
+  },
+  // Data Mining and Big Data Analytics
+  COMP502: {
+    types: ['coursework'],
+    grades: { coursework: 'To be graded' },
+  },
+  // ICT Project Management in Practice
+  COMP503: {
+    types: COURSEWORK_EXAM,
+    grades: {
+      coursework: 'To be graded',
+      examAndAssessment: 81,
+    },
+  },
+  // Artificial Intelligence
+  COMP504: {
+    types: COURSEWORK_EXAM,
+    grades: {
+      coursework: 'To be graded',
       examAndAssessment: 74,
     },
   },
@@ -47,39 +53,39 @@ export const MODULE_ASSESSMENTS = {
 export const YEAR_2_MODULES = [
   {
     code: 'COMP201',
+    name: 'Big Data and Database Systems',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 78, examAndAssessment: 78 },
+  },
+  {
+    code: 'COMP202',
+    name: 'Object-oriented Programming',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 86, examAndAssessment: 86 },
+  },
+  {
+    code: 'COMP203',
     name: 'Operating Systems',
     types: COURSEWORK_EXAM,
     grades: { coursework: 84, examAndAssessment: 76 },
   },
   {
-    code: 'COMP202',
+    code: 'COMP204',
     name: 'Principles of Data Networks',
     types: COURSEWORK_EXAM,
     grades: { coursework: 74, examAndAssessment: 72 },
   },
   {
-    code: 'COMP203',
-    name: 'Advanced Programming',
-    types: COURSEWORK_EXAM,
-    grades: { coursework: 78, examAndAssessment: 75 },
-  },
-  {
-    code: 'COMP204',
+    code: 'COMP205',
     name: 'Software Engineering',
     types: COURSEWORK_EXAM,
     grades: { coursework: 71, examAndAssessment: 73 },
   },
   {
-    code: 'COMP205',
-    name: 'Object Oriented Programming',
-    types: COURSEWORK_EXAM,
-    grades: { coursework: 86, examAndAssessment: 86 },
-  },
-  {
     code: 'COMP206',
-    name: 'Data Structures and Algorithms',
+    name: 'Advanced Programming',
     types: COURSEWORK_EXAM,
-    grades: { coursework: 81, examAndAssessment: 81 },
+    grades: { coursework: 78, examAndAssessment: 75 },
   },
 ];
 
@@ -98,12 +104,24 @@ export const YEAR_1_MODULES = [
   },
   {
     code: 'COMP103',
+    name: 'Professional Practice',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 80, examAndAssessment: 80 },
+  },
+  {
+    code: 'COMP104',
+    name: 'Data Structures and Algorithms',
+    types: COURSEWORK_EXAM,
+    grades: { coursework: 81, examAndAssessment: 81 },
+  },
+  {
+    code: 'COMP105',
     name: 'Discrete Mathematics',
     types: COURSEWORK_EXAM,
     grades: { coursework: 82, examAndAssessment: 81 },
   },
   {
-    code: 'COMP104',
+    code: 'COMP106',
     name: 'Requirements Analysis and UCD',
     types: COURSEWORK_EXAM,
     grades: { coursework: 76, examAndAssessment: 76 },

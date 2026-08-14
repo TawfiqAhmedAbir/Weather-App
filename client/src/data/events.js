@@ -1,7 +1,7 @@
 export const EXAMS = [
   {
     id: 'honors-info-comm-2026',
-    title: 'Honors Information and Communication',
+    title: 'Artificial Intelligence',
     type: 'Exam',
     date: '2026-06-10',
     displayDate: '10th June',
@@ -41,7 +41,7 @@ export const COURSEWORK_DEADLINES = [
     monthShort: 'Jul',
     time: '23:59',
     location: 'Moodle',
-    module: 'Big Data and Database Systems',
+    module: 'Data Mining and Big Data Analytics',
   },
   {
     id: 'cw-jul-11',
@@ -54,7 +54,7 @@ export const COURSEWORK_DEADLINES = [
     monthShort: 'Jul',
     time: '23:59',
     location: 'Moodle',
-    module: 'AI Systems and Architecture',
+    module: 'Artificial Intelligence',
   },
   {
     id: 'cw-jul-15',

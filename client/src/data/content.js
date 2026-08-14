@@ -1,6 +1,6 @@
 export const ANNOUNCEMENTS = [
   {
-    title: 'Honors Information and Communication exam — 10th June',
+    title: 'Artificial Intelligence exam — 10th June',
     subtitle: 'Check your timetable and arrive 15 minutes early.',
   },
   {
@@ -25,7 +25,7 @@ export const ALERTS = [
   {
     id: 'alert-1',
     title: 'Exam reminder',
-    body: 'Honors Information and Communication exam on 10th June at 13:00.',
+    body: 'Artificial Intelligence exam on 10th June at 13:00.',
     date: '8 Jun 2026',
     read: false,
   },
