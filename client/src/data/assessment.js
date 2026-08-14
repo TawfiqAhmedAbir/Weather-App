@@ -16,7 +16,7 @@ export const MODULE_ASSESSMENTS = {
   COMP501: {
     types: ['coursework', 'presentation'],
     grades: {
-      coursework: 'To be graded',
+      coursework: 77,
       presentation: {
         overall: 83,
         breakdown: [
@@ -30,13 +30,13 @@ export const MODULE_ASSESSMENTS = {
   // Data Mining and Big Data Analytics
   COMP502: {
     types: ['coursework'],
-    grades: { coursework: 'To be graded' },
+    grades: { coursework: 72 },
   },
   // ICT Project Management in Practice
   COMP503: {
     types: COURSEWORK_EXAM,
     grades: {
-      coursework: 'To be graded',
+      coursework: 76,
       examAndAssessment: 81,
     },
   },
@@ -44,7 +44,7 @@ export const MODULE_ASSESSMENTS = {
   COMP504: {
     types: COURSEWORK_EXAM,
     grades: {
-      coursework: 'To be graded',
+      coursework: 74,
       examAndAssessment: 74,
     },
   },
@@ -210,4 +210,39 @@ export function getModuleAverage(mod) {
   const values = components.map(getGradeNumeric);
   const sum = values.reduce((total, value) => total + value, 0);
   return Math.round(sum / values.length);
+}
+
+export const TRANSCRIPT_INFO = {
+  courseUndertaken: 'BSc (Hons) Computer Science (FT)',
+  studiedAt: 'Course studied at Southwark campus from September 2023 to June 2026',
+  totalCredits: 360,
+  awardGained: 'BACHELOR OF SCIENCE (HONOURS)',
+  awardClass: 'FIRST CLASS HONOURS',
+  dateAwarded: '28/08/2026',
+  catPerModule: 20,
+  ectsPerModule: 10.0,
+};
+
+/** Flat transcript rows, level 4 to level 6, like the printed LSBU transcript. */
+export function getTranscriptRows() {
+  const byLevel = [
+    { level: 4, modules: getFirstYearAssessments() },
+    { level: 5, modules: getSecondYearAssessments() },
+    { level: 6, modules: getThirdYearAssessments() },
+  ];
+
+  return byLevel.flatMap(({ level, modules }) =>
+    modules.map((mod) => {
+      const mark = getModuleAverage(mod);
+      return {
+        code: mod.code,
+        title: mod.name,
+        level,
+        cat: TRANSCRIPT_INFO.catPerModule,
+        ects: TRANSCRIPT_INFO.ectsPerModule,
+        mark,
+        grade: mark === null ? '—' : getPassFailGrade(mark),
+      };
+    })
+  );
 }
