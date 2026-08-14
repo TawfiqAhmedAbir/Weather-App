@@ -20,6 +20,7 @@ export default function UpcomingWeekPreview({ onOpenTimetable }) {
             >
               <p className="text-[10px] font-bold uppercase text-secondary">
                 {event.type}
+                {event.optional ? ' · Optional' : ''}
               </p>
               <p className="mt-1 text-sm font-extrabold leading-snug text-white">
                 {event.title}

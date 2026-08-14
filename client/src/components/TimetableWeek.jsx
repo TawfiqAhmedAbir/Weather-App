@@ -1,9 +1,10 @@
 import { Clock, MapPin } from 'lucide-react';
 import { getAllTimetableWeeks } from '../utils/timetable';
 
-function eventStyles(type) {
-  if (type === 'Deadline') return 'bg-secondary';
-  if (type === 'Ceremony') return 'bg-charcoal';
+function eventStyles(event) {
+  if (event.optional) return 'bg-gray-500';
+  if (event.type === 'Deadline') return 'bg-secondary';
+  if (event.type === 'Ceremony') return 'bg-charcoal';
   return 'bg-primary';
 }
 
@@ -47,10 +48,11 @@ function WeekDays({ days }) {
                 {day.events.map((event) => (
                   <li
                     key={event.id}
-                    className={`rounded-xl p-3 text-white ${eventStyles(event.type)}`}
+                    className={`rounded-xl p-3 text-white ${eventStyles(event)}`}
                   >
                     <p className="text-[10px] font-bold uppercase text-white/80">
                       {event.type}
+                      {event.optional ? ' · Optional' : ''}
                     </p>
                     <p className="text-sm font-extrabold leading-snug">
                       {event.title}
