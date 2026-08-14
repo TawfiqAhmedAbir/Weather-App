@@ -161,26 +161,22 @@ export function getFirstYearAssessments() {
   return YEAR_1_MODULES.map((mod) => buildModuleRecord(mod));
 }
 
-export function getUkLetterGrade(percent) {
-  if (percent >= 80) return 'A';
-  if (percent >= 70) return 'B';
-  if (percent >= 60) return 'C';
-  if (percent >= 50) return 'D';
-  if (percent >= 40) return 'E';
-  return 'F';
+/** LSBU transcript style: a module mark of 40 or above is a Pass. */
+export function getPassFailGrade(mark) {
+  return mark >= 40 ? 'Pass' : 'Fail';
 }
 
 export function formatGrade(value, { showUkGrade = false } = {}) {
   if (value === null || value === undefined) return 'To be graded';
   if (typeof value === 'object' && value.overall != null) {
-    const base = `${value.overall}%`;
+    const base = `${value.overall}`;
     if (!showUkGrade) return base;
-    return `${base} · ${getUkLetterGrade(value.overall)}`;
+    return `${base} · ${getPassFailGrade(value.overall)}`;
   }
   if (typeof value === 'number') {
-    const base = `${value}%`;
+    const base = `${value}`;
     if (!showUkGrade) return base;
-    return `${base} · ${getUkLetterGrade(value)}`;
+    return `${base} · ${getPassFailGrade(value)}`;
   }
   return value;
 }

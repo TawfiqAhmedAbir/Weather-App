@@ -107,7 +107,7 @@ function ModuleAssessmentCard({ mod, showUkGrade = false }) {
               {mod.name}
             </h3>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-gray-400">
-              Module average
+              20 CAT · 10.0 ECTS · Module mark
             </p>
           </div>
 
@@ -151,12 +151,17 @@ function ModuleAssessmentCard({ mod, showUkGrade = false }) {
   );
 }
 
-function YearSection({ title, children }) {
+function YearSection({ title, level, children }) {
   return (
     <section className="mb-6">
-      <h2 className="mb-3 text-sm font-extrabold uppercase tracking-wide text-primary">
-        {title}
-      </h2>
+      <div className="mb-3 flex items-baseline justify-between">
+        <h2 className="text-sm font-extrabold uppercase tracking-wide text-primary">
+          {title}
+        </h2>
+        <span className="text-xs font-bold uppercase tracking-wide text-gray-400">
+          Level {level}
+        </span>
+      </div>
       {children}
     </section>
   );
@@ -173,9 +178,10 @@ export default function AssessmentScreen({ onBack }) {
       <main className="px-4 pb-6 pt-2">
         <p className="mb-4 text-sm text-gray-600">
           Tap a module to view coursework, exam, and presentation breakdown.
+          Marks of 40 and above are a Pass.
         </p>
 
-        <YearSection title="3rd Year">
+        <YearSection title="3rd Year" level={6}>
           <ul className="space-y-3">
             {thirdYearModules.map((mod) => (
               <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
@@ -183,7 +189,7 @@ export default function AssessmentScreen({ onBack }) {
           </ul>
         </YearSection>
 
-        <YearSection title="2nd Year">
+        <YearSection title="2nd Year" level={5}>
           <ul className="space-y-3">
             {secondYearModules.map((mod) => (
               <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
@@ -191,7 +197,7 @@ export default function AssessmentScreen({ onBack }) {
           </ul>
         </YearSection>
 
-        <YearSection title="1st Year">
+        <YearSection title="1st Year" level={4}>
           <ul className="space-y-3">
             {firstYearModules.map((mod) => (
               <ModuleAssessmentCard key={mod.code} mod={mod} showUkGrade />
